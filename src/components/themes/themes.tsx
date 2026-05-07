@@ -1,0 +1,35 @@
+export const theme = {
+  colors: {
+    primary: "#0a8af3",
+    secondary: "#414141",
+
+    defaultCheckmark: "#0088e4",
+    defaultRadioButton: "#0088e4",
+    defaultBorderColor: "#c9c8c8",
+    defaultDisabledColor: "#c2c1c1",
+
+    black: "#000000",
+    blue: "#0088e4",
+    brown: "#5d4037",
+    cyan: "#70ffd9",
+    darkgray: "#09090a",
+    gray: "#b3b1b2",
+    green: "#1bc455",
+    indigo: "#424e88",
+    lightblue: "#61bbf8",
+    lightgray: "#ededed",
+    lime: "#dbff70",
+    magenta: "#d60867",
+    orange: "#fc8a08",
+    pink: "#d609ce",
+    purple: "#461eac",
+    red: "#d8070b",
+    teal: "#01b389",
+    violet: "#6921c2",
+    white: "#ffffff",
+    yellow: "#ffe138",
+  },
+  font: {
+    defaultFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif',
+  },
+};
