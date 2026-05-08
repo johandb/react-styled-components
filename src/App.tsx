@@ -54,10 +54,42 @@ const App = () => {
     console.log("Button clicked!");
   };
 
+  /*
   return (
-    <div style={{ padding: "10px" }}>
+    <div>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
+      </ThemeProvider>
+      <Container>
+        <Group>
+          <Radio
+            position="right"
+            value="click"
+            color="orange"
+            size="sm"
+            checked={checkedRadio.r1}
+            onChange={() => updateCheckedRadioValues("r1", !checkedRadio.r1)}
+          >
+            Click me
+          </Radio>
+          <Radio
+            value="click"
+            color="orange"
+            size="sm"
+            checked={checkedRadio.r1}
+            onChange={() => updateCheckedRadioValues("r1", !checkedRadio.r1)}
+          >
+            Click me
+          </Radio>
+        </Group>
+      </Container>
+    </div>
+  );
+  */
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Stack>
         <h1>Styled Components Demo</h1>
         <h2 style={{ color: "red" }}>Testing h2</h2>
         <h3>Testing h3</h3>
@@ -66,7 +98,7 @@ const App = () => {
         <hr />
         <h5>Text</h5>
         <Stack>
-          <Text label="Hello, Styled Components!" size="xl" />
+          <Text label="Hello, Styled Components!" size="42px" />
           <Text label="Hello, Styled Components!" mt={20} mb={20} color="orange" fw="bold" />
           <Text label="Hello, Styled Components!" color="red" />
         </Stack>
@@ -77,24 +109,24 @@ const App = () => {
         </Group>
         <hr />
         <h5>Buttons</h5>
-        {/* <Group> */}
-        <Button onClick={handleButtonClick} size="sm">
-          Small
-        </Button>
-        <Button onClick={handleButtonClick} size="md">
-          Medium
-        </Button>
-        <Button onClick={handleButtonClick} size="lg">
-          Large
-        </Button>
-        <Button radius={20} onClick={handleButtonClick} size="xl">
-          Extra Large
-        </Button>
-        <Button onClick={handleButtonClick} color="purple" variant="outline">
-          Click me
-        </Button>
-        <TextButton color="orange">Warning</TextButton>
-        {/* </Group> */}
+        <Group>
+          <Button onClick={handleButtonClick} size="sm">
+            Small
+          </Button>
+          <Button onClick={handleButtonClick} size="md">
+            Medium
+          </Button>
+          <Button onClick={handleButtonClick} size="lg">
+            Large
+          </Button>
+          <Button radius={10} onClick={handleButtonClick} size="xl">
+            Extra Large
+          </Button>
+          <Button onClick={handleButtonClick} color="purple" variant="outline">
+            Click me
+          </Button>
+          <TextButton color="orange">Warning</TextButton>
+        </Group>
         <hr />
         <h5>Stack</h5>
         <Stack>
@@ -118,7 +150,7 @@ const App = () => {
         </Group>
         <hr />
         <h5>Radio Group</h5>
-        <Group align="end">
+        <Group>
           <Radio.Group value={value} onChange={(v) => handleChange(v)}>
             <Radio value="react">React</Radio>
             <Radio value="vue">Vue</Radio>
@@ -199,13 +231,13 @@ const App = () => {
         <br />
         <br />
         <hr />
-        <div style={{ display: "flex", gap: "0px", justifyContent: "stretch", height: "100px" }}>
-          <div style={{ backgroundColor: "red", flex: "1 1" }}>Red</div>
-          <div style={{ backgroundColor: "green", flex: "4 1" }}>Green</div>
+        <div style={{ display: "flex", gap: "0px", height: "100px" }}>
+          <div style={{ backgroundColor: "red", flex: "3 1" }}>Red</div>
+          <div style={{ backgroundColor: "green", flex: "6 1" }}>Green</div>
           <div style={{ backgroundColor: "blue", flex: "2 1" }}>Blue</div>
         </div>
-      </ThemeProvider>
-    </div>
+      </Stack>
+    </ThemeProvider>
   );
 };
 

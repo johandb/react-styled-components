@@ -10,13 +10,11 @@ export const Card = (props: { color?: Color; children: React.ReactNode }) => {
 
 const StyledCard = styled.div<{ color: string }>`
   margin: 0;
-  padding: 0;
   width: auto;
   height: auto;
   background-color: ${(props) => props.color || theme.colors.white};
   border: 1px solid ${() => theme.colors.defaultBorderColor};
-  border-radius: 5px;
+  border-radius: 3px;
   padding: 5px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
-  /* box-shadow: ${(props) => props.color || theme.colors.defaultBorderColor} 0px 5px 5px; */
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px;
 `;

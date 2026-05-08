@@ -48,7 +48,7 @@ const StyledDateWeekDayHeader = styled.div`
   border-bottom: 1px lightgray solid;
 `;
 
-const StyledDateDay = styled.div<{ $isSelected?: boolean }>`
+const StyledDateDay = styled.div<{ $isSelected: boolean; $isCurrent: boolean }>`
   font-size: 18px;
   width: 38px;
   margin-right: 5px;
@@ -59,6 +59,7 @@ const StyledDateDay = styled.div<{ $isSelected?: boolean }>`
       ? `background-color: ${theme.colors.primary}; color: white; border-radius: 5px;`
       : `background-color: transparent;`}
   text-align: center;
+  ${(props) => (props.$isCurrent && !props.$isSelected ? `border: 1px red solid; border-radius: 5px;` : ``)}
   &:hover {
     background-color: ${theme.colors.lightgray};
     color: black;
@@ -190,6 +191,12 @@ export const DatePicker = (props: DateTimeProps) => {
     );
   };
 
+  const isCurrentDate = (date: { day: number; month: number; year: number }) => {
+    return (
+      date.day === currentDate.getDate() && date.month === currentDate.getMonth() + 1 && date.year === currentDate.getFullYear()
+    );
+  };
+
   const onDateChange = (field: string, value: number) => {
     //console.log(field, ', ', value);
     let newSelectedDate = new Date(selectedDate);
@@ -266,7 +273,7 @@ export const DatePicker = (props: DateTimeProps) => {
                   <StyledDateDay
                     key={x}
                     $isSelected={isSelectedDate(col)}
-                    // className={isSelectedDate(col) ? "sdp-date selected" : "sdp-date"}
+                    $isCurrent={isCurrentDate(col)}
                     onClick={() => pickDate(col.day)}
                   >
                     {col.day}

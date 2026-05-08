@@ -30,11 +30,11 @@ export const Text = (props: LabelProps) => {
 
   let styleProps: LabelStyleProps = {
     color: props.color ? Color2Value(props.color) : theme.colors.black,
-    mt: props.mt ? `${props.mt}px` : "2px",
-    ml: props.ml ? `${props.ml}px` : "2px",
-    mr: props.mr ? `${props.mr}px` : "2px",
-    mb: props.mb ? `${props.mb}px` : "2px",
-    fontSize: size === "sm" ? "0.8rem" : size === "md" ? "0.9rem" : size === "lg" ? "1.1rem" : "1.3rem",
+    mt: props.mt ? `${props.mt}px` : "1px",
+    ml: props.ml ? `${props.ml}px` : "1px",
+    mr: props.mr ? `${props.mr}px` : "1px",
+    mb: props.mb ? `${props.mb}px` : "1px",
+    fontSize: size === "sm" ? "0.8rem" : size === "md" ? "0.9rem" : size === "lg" ? "1.1rem" : size === "xl" ? "1.3rem" : size,
     fw: props.fw ? props.fw : "normal",
   };
 
