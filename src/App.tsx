@@ -1,18 +1,12 @@
 import { useState } from "react";
+import { FaCreditCard, FaLock, FaMarker, FaUser } from "react-icons/fa";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./components/themes/themes";
-import { Button, TextButton } from "./styled/button/button.styled";
-import { Card } from "./styled/card/card.styled";
-import { Checkbox } from "./styled/checkbox/checkbox.styled";
-import { DatePicker } from "./styled/date/date.styled";
+import { Container } from "./styled/container/container.styled";
 import GlobalStyle from "./styled/global";
-import { Group } from "./styled/group/group.styled";
-import { TextInput } from "./styled/input/input.styled";
-import { Radio } from "./styled/radio/radio.styled";
-import { Select } from "./styled/select/select.styled";
+import { NumberInput, PasswordInput, TextInput } from "./styled/input/input.styled";
 import { Stack } from "./styled/stack/stack.styled";
-import { Text } from "./styled/text/styled.text";
-import { TextArea } from "./styled/textarea/textarea.styled";
+import { Switch } from "./styled/switch/switch.styled";
 
 const App = () => {
   const [checked, setChecked] = useState({ r1: false, r2: false, r3: false, r4: false });
@@ -22,6 +16,7 @@ const App = () => {
   const [selection, setSelection] = useState("2");
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [name, setName] = useState("Johan den Boer");
+  const [count, setCount] = useState<number>(0);
 
   const handleChangeChecked = (key: string, b: boolean) => {
     console.log("handleChangeChecked key:", key, ", value:", b);
@@ -54,38 +49,50 @@ const App = () => {
     console.log("Button clicked!");
   };
 
-  /*
   return (
-    <div>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-      </ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
       <Container>
-        <Group>
-          <Radio
-            position="right"
-            value="click"
-            color="orange"
-            size="sm"
-            checked={checkedRadio.r1}
-            onChange={() => updateCheckedRadioValues("r1", !checkedRadio.r1)}
-          >
-            Click me
-          </Radio>
-          <Radio
-            value="click"
-            color="orange"
-            size="sm"
-            checked={checkedRadio.r1}
-            onChange={() => updateCheckedRadioValues("r1", !checkedRadio.r1)}
-          >
-            Click me
-          </Radio>
-        </Group>
+        <Stack mt={10} ml={10}>
+          <TextInput size="sm" label="Your name" leftIcon={<FaUser />} value={name} onChange={(value) => setName(value)} />
+          <TextInput
+            required
+            size="md"
+            label="Your name"
+            leftIcon={<FaLock size={18} />}
+            value={name}
+            onChange={(value) => setName(value)}
+          />
+          <TextInput
+            label="Your name"
+            leftIcon={<FaUser color="blue" size={24} />}
+            size="xl"
+            value={name}
+            onChange={(value) => setName(value)}
+          />
+          <TextInput
+            required
+            label="Your name"
+            leftIcon={<FaMarker color="teal" size={28} />}
+            size="lg"
+            placeholder="Enter your name"
+            value={name}
+            onChange={(value) => setName(value)}
+          />
+          <PasswordInput onChange={(value) => setName(value)} value={name} />
+          <NumberInput
+            leftIcon={<FaCreditCard color="green" size={18} />}
+            size="md"
+            onChange={(value) => setCount(Number(value))}
+            value={`${count}`}
+          />
+          <Switch />
+        </Stack>
       </Container>
-    </div>
+    </ThemeProvider>
   );
-  */
+
+  /*
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -98,7 +105,7 @@ const App = () => {
         <hr />
         <h5>Text</h5>
         <Stack>
-          <Text label="Hello, Styled Components!" size="42px" />
+          <Text size="xl" mt={10} label="Hello, Styled Components!" fw="500" />
           <Text label="Hello, Styled Components!" mt={20} mb={20} color="orange" fw="bold" />
           <Text label="Hello, Styled Components!" color="red" />
         </Stack>
@@ -231,14 +238,24 @@ const App = () => {
         <br />
         <br />
         <hr />
-        <div style={{ display: "flex", gap: "0px", height: "100px" }}>
-          <div style={{ backgroundColor: "red", flex: "3 1" }}>Red</div>
-          <div style={{ backgroundColor: "green", flex: "6 1" }}>Green</div>
-          <div style={{ backgroundColor: "blue", flex: "2 1" }}>Blue</div>
-        </div>
+        <Flex bg="orange" gap={1}>
+          <FlexCol bg="blue" span={2}>
+            <Stack>
+              <Text color="white" label="1" />
+              <Text label="Hoi" />
+            </Stack>
+          </FlexCol>
+          <FlexCol span={3}>
+            <Button onClick={() => {}}>Click</Button>
+          </FlexCol>
+          <FlexCol bg="green">
+            <Text label="2" />
+          </FlexCol>
+        </Flex>
       </Stack>
     </ThemeProvider>
   );
+  */
 };
 
 export default App;

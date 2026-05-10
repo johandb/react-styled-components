@@ -30,18 +30,18 @@ export const Text = (props: LabelProps) => {
 
   let styleProps: LabelStyleProps = {
     color: props.color ? Color2Value(props.color) : theme.colors.black,
-    mt: props.mt ? `${props.mt}px` : "1px",
-    ml: props.ml ? `${props.ml}px` : "1px",
-    mr: props.mr ? `${props.mr}px` : "1px",
-    mb: props.mb ? `${props.mb}px` : "1px",
-    fontSize: size === "sm" ? "0.8rem" : size === "md" ? "0.9rem" : size === "lg" ? "1.1rem" : size === "xl" ? "1.3rem" : size,
+    mt: `${props.mt ?? 0}px`,
+    mr: `${props.mr ?? 0}px`,
+    mb: `${props.mb ?? 0}px`,
+    ml: `${props.ml ?? 0}px`,
+    fontSize: size === "sm" ? "0.8rem" : size === "md" ? "0.9rem" : size === "xl" ? "1.1rem" : size === "lg" ? "1.3rem" : size,
     fw: props.fw ? props.fw : "normal",
   };
 
   return <StyledText $styleProps={styleProps}>{props.label}</StyledText>;
 };
 
-const StyledText = styled.label<{ $styleProps: LabelStyleProps }>`
+const StyledText = styled.div<{ $styleProps: LabelStyleProps }>`
   font-size: ${(props) => props.$styleProps.fontSize};
   margin-top: ${(props) => props.$styleProps.mt};
   margin-left: ${(props) => props.$styleProps.ml};

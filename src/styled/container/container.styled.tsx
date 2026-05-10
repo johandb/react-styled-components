@@ -2,23 +2,17 @@ import styled from "styled-components";
 
 interface ContainerProps {
   gap?: number;
-  direction?: "row" | "column";
   children: React.ReactNode;
 }
 
 export const Container = (props: ContainerProps) => {
   let gap = props.gap ?? 0;
-  let direction = props.direction ?? "row";
-  return (
-    <StyledContainer $direction={direction} $gap={gap}>
-      {props.children}
-    </StyledContainer>
-  );
+  return <StyledContainer $gap={gap}>{props.children}</StyledContainer>;
 };
 
-const StyledContainer = styled.div<{ $gap: number; $direction: string }>`
+const StyledContainer = styled.div<{ $gap: number }>`
   display: flex;
-  flex-direction: ${(props) => props.$direction};
+  flex-direction: row;
   align-items: start;
   align-content: start;
   flex-wrap: wrap;
