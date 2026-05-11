@@ -1,52 +1,64 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { theme } from "../../components/themes/themes";
+import type { Color } from "../../components/types/color";
+import { Color2Value } from "../../components/utils/styled.utils";
 import { Text } from "../text/styled.text";
 
 interface SwitchProps {
-  disabled?: boolean;
+  color?: Color;
+  label?: string;
   position?: "left" | "right";
+  onChange?: (toggle: boolean) => void;
 }
 
 export const Switch = (props: SwitchProps) => {
   const [toggle, setToggle] = useState(false);
 
+  let color = Color2Value(props.color ?? theme.colors.primary);
+
+  const handleToggle = () => {
+    let newToggle = !toggle;
+    setToggle(newToggle);
+    props.onChange?.(newToggle);
+  };
+
   return (
-    <StyledSwitchContainer onClick={() => setToggle(!toggle)}>
-      <StyledSwitch toggle={toggle} />
-      <Text label="Click me" ml={2} mr={2} />
+    <StyledSwitchContainer onClick={() => handleToggle()} $position={props.position ?? "left"}>
+      <StyledSwitch $toggle={toggle} color={color} />
+      <Text label={props.label ?? ""} ml={5} mr={5} color={toggle ? "black" : theme.colors.defaultDisabledColor} />
     </StyledSwitchContainer>
   );
 };
 
-const StyledSwitchContainer = styled.div`
+const StyledSwitchContainer = styled.div<{ $position: string }>`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${(props) => (props.$position === "left" ? "row" : "row-reverse")};
   width: fit-content;
   margin: 0;
   background-color: inherit;
 `;
 
-const StyledSwitch = styled.div<{ toggle: boolean }>`
+const StyledSwitch = styled.div<{ $toggle: boolean; color: string }>`
   width: 40px;
   height: 20px;
   outline: none;
   border-radius: 15px;
-  ${(props) => (props.toggle ? "border: 1px solid black" : "border: 1px solid gray;")};
+  background-color: ${(props) => (props.$toggle ? props.color : theme.colors.gray)};
   position: relative;
   &:before {
     content: "";
     position: absolute;
     top: 50%;
-    left: ${(props) => `${props.toggle ? 1.0 : 0.1}rem`};
+    left: ${(props) => `${props.$toggle ? 1.0 : 0.1}rem`};
     transform: translate(0, -50%);
     box-sizing: border-box;
     width: 0.9em;
     height: 0.9em;
     margin: 0 0.2em;
-    ${(props) => (props.toggle ? "border 1pxsolid; opacity: 1.0;" : "border: none; opacity: 0.4;")}
-    /* border: 1px solid; */
     border-radius: 50%;
-    background: ${(props) => (props.toggle ? "black" : "gray")};
+    /* box-shadow: 0px 0px 0px 2px ${theme.colors.primary}; */
+    background: white;
   }
   &:hover {
     cursor: pointer;

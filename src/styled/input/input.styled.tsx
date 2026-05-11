@@ -24,10 +24,10 @@ const Input = (props: StyledInputProps) => {
 
   return (
     <StyledTextInputContainer>
-      <div>
+      <StyledInputWrapper>
         {props.label && <Text label={props.label} size={props.size} />}
         {props.required && <Text label="*" color="red" size={props.size} />}
-      </div>
+      </StyledInputWrapper>
       <StyledInputWrapper>
         <StyledInputIcon $p={props.leftIcon ? pt : "5"}>{props.leftIcon}</StyledInputIcon>
         <StyledInput

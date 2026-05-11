@@ -2,15 +2,7 @@ import styled from "styled-components";
 import { theme } from "../../components/themes/themes";
 import { type Color } from "../../components/types/color";
 import { type Size } from "../../components/types/size";
-
-interface CheckboxStyledProps {
-  height: string;
-  width: string;
-  markHeight: string;
-  markWidth: string;
-  fontSize: string;
-  margin: string;
-}
+import useCheckbox from "../../hooks/use-checkbox";
 
 interface CheckboxProps {
   size?: Size;
@@ -59,7 +51,7 @@ const StyledCheckboxLabel = styled.div<{
 
 const StyledCheckboxContainer = styled.div<{ disabled: boolean }>`
   display: flex;
-  gap: 4px;
+  gap: 7px;
   align-items: center;
   margin: 0px 5px 5px 0px;
 `;
@@ -67,30 +59,22 @@ const StyledCheckboxContainer = styled.div<{ disabled: boolean }>`
 export const Checkbox = (props: CheckboxProps) => {
   let size = props.size ?? "md";
 
-  let checkboxStyle: CheckboxStyledProps = {
-    fontSize: size === "sm" ? "14px" : size === "md" ? "18px" : size === "lg" ? "24px" : "20px",
-    height: size === "sm" ? "14px" : size === "md" ? "18px" : size === "lg" ? "26px" : "22px",
-    width: size === "sm" ? "14px" : size === "md" ? "18px" : size === "lg" ? "26px" : "22px",
-    markHeight: size === "sm" ? "8px" : size === "md" ? "10px" : size === "lg" ? "20px" : "16px",
-    markWidth: size === "sm" ? "3px" : size === "md" ? "5px" : size === "lg" ? "11px" : "8px",
-    margin:
-      size === "sm" ? "0px 0px 0px 4px" : size === "md" ? "1px 0px 0px 5px" : size === "lg" ? "0px 0px 4px 6px" : "0px 0px 0px 5px",
-  };
+  let cb = useCheckbox(size);
 
   return (
     <StyledCheckboxContainer disabled={props.disabled ?? false}>
-      <StyledCheckbox width={checkboxStyle.width} height={checkboxStyle.height} $margin={checkboxStyle.margin}>
+      <StyledCheckbox width={cb.w} height={cb.h} $margin={cb.m}>
         <StyledCheckboxIcon
           onClick={() => (props.disabled ? {} : props.onChange("test"))}
           disabled={props.disabled ?? false}
           checked={props.checked}
-          $margin={checkboxStyle.margin}
-          height={checkboxStyle.markHeight}
-          width={checkboxStyle.markWidth}
+          $margin={cb.m}
+          height={cb.mh}
+          width={cb.mw}
           color={props.color}
         />
       </StyledCheckbox>
-      <StyledCheckboxLabel disabled={props.disabled ?? false} fontSize={checkboxStyle.fontSize}>
+      <StyledCheckboxLabel disabled={props.disabled ?? false} fontSize={cb.fs}>
         {props.label}
       </StyledCheckboxLabel>
     </StyledCheckboxContainer>

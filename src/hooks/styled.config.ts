@@ -1,0 +1,66 @@
+export const StyledConfig = {
+  checkbox: {
+    sm: {
+      fs: "14px",
+      h: "14px",
+      w: "14px",
+      mh: "8px",
+      mw: "3px",
+      m: "0px 0px 0px 4px",
+    },
+    md: {
+      fs: "18px",
+      h: "18px",
+      w: "18px",
+      mh: "10px",
+      mw: "5px",
+      m: "1px 0px 0px 5px",
+    },
+    lg: {
+      fs: "20px",
+      h: "22px",
+      w: "22px",
+      mh: "16px",
+      mw: "8px",
+      m: "0px 0px 0px 5px",
+    },
+    xl: {
+      fs: "24px",
+      h: "26px",
+      w: "26px",
+      mh: "20px",
+      mw: "11px",
+      m: "0px 0px 4px 6px",
+    },
+  },
+  radio: {
+    sm: {
+      p: "5px 0px 0px 3px",
+      fs: "14px",
+      b: "2px",
+      h: "8px",
+      w: "8px",
+    },
+    md: {
+      p: "6px 0px 0px 3px",
+      fs: "16px",
+      b: "3px",
+      h: "12px",
+      w: "12px",
+    },
+    lg: {
+      p: "8px 0px 0px 3px",
+      fs: "18px",
+      b: "4px",
+      h: "16px",
+      w: "16px",
+    },
+    xl: {
+      p: "10px 0px 0px 3px",
+      fs: "20px",
+      b: "5px",
+      h: "20px",
+      w: "20px",
+    },
+  },
+};

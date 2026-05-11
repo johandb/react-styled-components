@@ -5,6 +5,7 @@ import type { Color } from "../../components/types/color";
 import type { Size } from "../../components/types/size";
 import { Color2Value } from "../../components/utils/styled.utils";
 import { RadioContext } from "../../hooks/radio.context";
+import useRadio from "../../hooks/use-radio";
 
 interface RadioProps {
   color?: Color;
@@ -22,15 +23,6 @@ interface RadioGroupProps {
   onChange?: (value: string) => void;
   children: React.ReactNode;
   disabled?: boolean;
-}
-
-interface RadioStyleProps {
-  height: string;
-  width: string;
-  border: string;
-  boxShadow: string;
-  padding: string;
-  fontSize: string;
 }
 
 export const RadioGroup = (props: RadioGroupProps) => {
@@ -55,21 +47,7 @@ export const Radio = (props: RadioProps) => {
   let ctx = use(RadioContext);
 
   let size = props.size ?? "md";
-  let radioStyle: RadioStyleProps = {
-    padding:
-      size === "sm"
-        ? "5px 0px 0px 3px"
-        : size === "md"
-          ? "6px 0px 0px 3px"
-          : size === "lg"
-            ? "10px 0px 0px 3px"
-            : "8px 0px 0px 3px",
-    fontSize: size === "sm" ? "14px" : size === "md" ? "16px" : size === "lg" ? "20px" : "18px",
-    border: size === "sm" ? "2px" : size === "md" ? "3px" : size === "lg" ? "5px" : "4px",
-    boxShadow: "0 0 0 1px",
-    height: size === "sm" ? "8px" : size === "md" ? "12px" : size === "lg" ? "20px" : "16px",
-    width: size === "sm" ? "8px" : size === "md" ? "12px" : size === "lg" ? "20px" : "16px",
-  };
+  let radio = useRadio(size);
 
   let color = props.color
     ? Color2Value(props.color)
@@ -98,12 +76,14 @@ export const Radio = (props: RadioProps) => {
     <StyledRadioContainer $position={props.position ?? "left"}>
       <StyledRadio
         disabled={props.disabled ?? false}
-        $radio={radioStyle}
+        $h={radio.h}
+        $w={radio.w}
+        $b={radio.b}
         checked={checked ?? false}
         color={color}
         onClick={() => (props.disabled ? {} : handleRadioClick(ctx ? props.value : (checked ?? false)))}
       />
-      <StyledRadioLabel $radio={radioStyle} disabled={props.disabled ?? false}>
+      <StyledRadioLabel $fs={radio.fs} $p={radio.p} disabled={props.disabled ?? false}>
         {props.children}
       </StyledRadioLabel>
     </StyledRadioContainer>
@@ -116,20 +96,20 @@ const StyledRadioContainer = styled.div<{ $position: string }>`
   flex-direction: ${(props) => (props.$position == "right" ? "row-reverse" : "row")};
 `;
 
-const StyledRadioLabel = styled.div<{ $radio: RadioStyleProps; disabled: boolean }>`
-  font-size: ${(props) => props.$radio.fontSize};
-  padding: ${(props) => props.$radio.padding};
+const StyledRadioLabel = styled.div<{ $fs: string; $p: string; disabled: boolean }>`
+  font-size: ${(props) => props.$fs};
+  padding: ${(props) => props.$p};
   color: ${(props) => (props.disabled ? theme.colors.defaultDisabledColor : "inherit")};
 `;
 
-const StyledRadio = styled.div<{ color: string; checked: boolean; $radio: RadioStyleProps; disabled: boolean }>`
+const StyledRadio = styled.div<{ color: string; checked: boolean; $b: string; $h: string; $w: string; disabled: boolean }>`
   background: ${(props) => (props.disabled ? theme.colors.defaultDisabledColor : props.checked ? props.color : theme.colors.white)};
   border-radius: 50%;
-  border: ${(props) => props.$radio.border} solid white;
-  height: ${(props) => props.$radio.height};
-  width: ${(props) => props.$radio.width};
+  border: ${(props) => props.$b} solid white;
+  height: ${(props) => props.$h};
+  width: ${(props) => props.$w};
   position: relative;
-  box-shadow: ${(props) => props.$radio.boxShadow} ${(props) => (props.checked ? props.color : theme.colors.defaultBorderColor)};
+  box-shadow: ${(props) => `0 0 0 1px ${props.checked ? props.color : theme.colors.defaultBorderColor}`};
   &:hover {
     cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   }

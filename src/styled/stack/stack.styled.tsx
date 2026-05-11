@@ -12,12 +12,12 @@ interface StackProps {
 export const Stack = (props: StackProps) => {
   let margins = `${props.mt ?? 0}px ${props.mr ?? 0}px ${props.mb ?? 0}px ${props.ml ?? 0}px`;
 
-  return <StyledStack margins={margins}>{props.children}</StyledStack>;
+  return <StyledStack $margins={margins}>{props.children}</StyledStack>;
 };
 
-const StyledStack = styled.div<{ margins: string }>`
+const StyledStack = styled.div<{ $margins: string }>`
   display: flex;
   flex-direction: column;
   background-color: inherit;
-  margin: ${(props) => props.margins};
+  margin: ${(props) => props.$margins};
 `;
