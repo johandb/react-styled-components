@@ -2,7 +2,6 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import { theme } from "./components/themes/themes.tsx";
-import { StyledContext } from "./hooks/styled.context.ts";
 import "./index.css";
 
 const defaultStyle = {
@@ -26,8 +25,8 @@ const defaultStyle = {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <StyledContext.Provider value={defaultStyle}>
-      <App />
-    </StyledContext.Provider>
+    {/* <StyledContext.Provider value={defaultStyle}> */}
+    <App />
+    {/* </StyledContext.Provider> */}
   </StrictMode>,
 );

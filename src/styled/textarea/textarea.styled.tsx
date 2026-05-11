@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { theme } from "../../components/themes/themes";
+import type { Size } from "../../components/types/size";
 import { Text } from "../text/styled.text";
 
 interface InputProps {
@@ -11,12 +12,13 @@ interface InputProps {
   required?: boolean;
   rows?: number;
   cols?: number;
+  size?: Size;
 }
 
 export const TextArea = (props: InputProps) => {
   return (
     <StyledTextAreaContainer>
-      {props.label && <Text label={props.label} />}
+      {props.label && <Text label={props.label} size={props.size} />}
       <StyledTextArea
         value={props.value}
         disabled={props.disabled ?? false}
