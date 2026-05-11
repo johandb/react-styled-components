@@ -63,4 +63,56 @@ export const StyledConfig = {
       w: "20px",
     },
   },
+  toggle: {
+    sm: {
+      w: 40,
+      h: 20,
+      cw: 0.9,
+      ch: 0.9,
+      left: 1.2,
+    },
+    md: {
+      w: 45,
+      h: 23,
+      cw: 1.1,
+      ch: 1.1,
+      left: 1.3,
+    },
+    lg: {
+      w: 52,
+      h: 27,
+      cw: 1.3,
+      ch: 1.3,
+      left: 1.5,
+    },
+    xl: {
+      w: 59,
+      h: 31,
+      cw: 1.5,
+      ch: 1.5,
+      left: 1.7,
+    },
+  },
+  input: {
+    sm: {
+      pr: 25,
+      pt: 5,
+      fs: 0.9,
+    },
+    md: {
+      pr: 30,
+      pt: 7,
+      fs: 1.2,
+    },
+    lg: {
+      pr: 35,
+      pt: 7,
+      fs: 1.5,
+    },
+    xl: {
+      pr: 40,
+      pt: 8,
+      fs: 1.8,
+    },
+  },
 };

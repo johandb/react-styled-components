@@ -2,11 +2,9 @@ import { useState } from "react";
 import { FaCreditCard, FaLock, FaMarker, FaUser } from "react-icons/fa";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./components/themes/themes";
-import { Checkbox } from "./styled/checkbox/checkbox.styled";
 import { Container } from "./styled/container/container.styled";
 import GlobalStyle from "./styled/global";
 import { NumberInput, PasswordInput, TextInput } from "./styled/input/input.styled";
-import { Radio } from "./styled/radio/radio.styled";
 import { Stack } from "./styled/stack/stack.styled";
 import { Switch } from "./styled/switch/switch.styled";
 
@@ -66,18 +64,18 @@ const App = () => {
             onChange={(value) => setName(value)}
           />
           <TextInput
+            required
             label="Your name"
-            leftIcon={<FaUser color="blue" size={24} />}
-            size="xl"
+            leftIcon={<FaMarker color="teal" size={24} />}
+            size="lg"
+            placeholder="Enter your name"
             value={name}
             onChange={(value) => setName(value)}
           />
           <TextInput
-            required
             label="Your name"
-            leftIcon={<FaMarker color="teal" size={28} />}
-            size="lg"
-            placeholder="Enter your name"
+            leftIcon={<FaUser color="blue" size={28} />}
+            size="xl"
             value={name}
             onChange={(value) => setName(value)}
           />
@@ -89,51 +87,12 @@ const App = () => {
             value={`${count}`}
           />
           <Switch label="I agree" />
-          <Radio
-            value="click"
-            color="orange"
-            size="sm"
-            checked={checkedRadio.r1}
-            onChange={() => updateCheckedRadioValues("r1", !checkedRadio.r1)}
-          >
-            Click me
-          </Radio>
-          <Radio
-            value="demo"
-            color="orange"
-            size="md"
-            checked={checkedRadio.r2}
-            onChange={() => updateCheckedRadioValues("r2", !checkedRadio.r2)}
-          >
-            Demo
-          </Radio>
-          <Radio
-            disabled
-            value="agree"
-            size="lg"
-            checked={checkedRadio.r4}
-            onChange={() => updateCheckedRadioValues("r4", !checkedRadio.r4)}
-          >
-            I agree
-          </Radio>
-          <Radio
-            value="choose"
-            size="xl"
-            checked={checkedRadio.r3}
-            onChange={() => updateCheckedRadioValues("r3", !checkedRadio.r3)}
-          >
-            Choose one
-          </Radio>
-          <Checkbox
-            size="sm"
-            color="indigo"
-            checked={checked.r1}
-            onChange={() => handleChangeChecked("r1", !checked.r1)}
-            label="Accept terms"
-          />
-          <Checkbox disabled checked={checked.r2} onChange={() => handleChangeChecked("r2", !checked.r2)} label="Accept terms" />
-          <Checkbox size="lg" checked={checked.r4} onChange={() => handleChangeChecked("r4", !checked.r4)} label="Accept terms" />
-          <Checkbox size="xl" checked={checked.r3} onChange={() => handleChangeChecked("r3", !checked.r3)} label="Accept terms" />
+          <br />
+          <Switch label="I agree" size="md" />
+          <br />
+          <Switch label="I agree" position="right" color="indigo" size="lg" />
+          <br />
+          <Switch label="I agree" size="xl" />
         </Stack>
       </Container>
     </ThemeProvider>

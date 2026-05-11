@@ -26,7 +26,7 @@ interface LabelStyleProps {
 }
 
 export const Text = (props: LabelProps) => {
-  let size = props.size ? props.size : "md";
+  let size = props.size ? props.size : "sm";
 
   let styleProps: LabelStyleProps = {
     color: props.color ? Color2Value(props.color) : theme.colors.black,
@@ -34,7 +34,7 @@ export const Text = (props: LabelProps) => {
     mr: `${props.mr ?? 0}px`,
     mb: `${props.mb ?? 0}px`,
     ml: `${props.ml ?? 0}px`,
-    fontSize: size === "sm" ? "0.8rem" : size === "md" ? "0.9rem" : size === "xl" ? "1.1rem" : size === "lg" ? "1.3rem" : size,
+    fontSize: size === "sm" ? "0.8rem" : size === "md" ? "0.9rem" : size === "lg" ? "1.1rem" : size === "xl" ? "1.3rem" : size,
     fw: props.fw ? props.fw : "normal",
   };
 
