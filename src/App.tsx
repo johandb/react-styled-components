@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./components/themes/themes";
 import { Accordion, AccordionHeader, AccordionPanel } from "./styled/accordion/accordion.styled";
@@ -6,45 +5,42 @@ import { Container } from "./styled/container/container.styled";
 import GlobalStyle from "./styled/global";
 
 const App = () => {
-  const [checked, setChecked] = useState({ r1: false, r2: false, r3: false, r4: false });
-  const [checkedRadio, setCheckedRadio] = useState({ r1: false, r2: false, r3: false, r4: false });
-  const [value, setValue] = useState("vue");
-  const [description, setDescription] = useState("");
-  const [selection, setSelection] = useState("2");
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [name, setName] = useState("Johan den Boer");
-  const [count, setCount] = useState<number>(0);
+  // const [checked, setChecked] = useState({ r1: false, r2: false, r3: false, r4: false });
+  // const [checkedRadio, setCheckedRadio] = useState({ r1: false, r2: false, r3: false, r4: false });
+  // const [value, setValue] = useState("vue");
+  //const [description, setDescription] = useState("");
+  //const [selection, setSelection] = useState("2");
+  //const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  //const [name, setName] = useState("Johan den Boer");
+  //const [count, setCount] = useState<number>(0);
 
-  const handleChangeChecked = (key: string, b: boolean) => {
-    console.log("handleChangeChecked key:", key, ", value:", b);
-    let updatedChecked = { ...checked, [key]: b };
-    console.log("updatedChecked:", updatedChecked);
-    setChecked(updatedChecked);
-  };
+  // const handleChangeChecked = (key: string, b: boolean) => {
+  //   console.log("handleChangeChecked key:", key, ", value:", b);
+  //   let updatedChecked = { ...checked, [key]: b };
+  //   console.log("updatedChecked:", updatedChecked);
+  //   setChecked(updatedChecked);
+  // };
 
-  console.log("App value:", value);
-  console.log("App checkedRadio :", checkedRadio);
+  // const handleChange = (value: string) => {
+  //   console.log("handleChange data:", value);
+  //   setValue(value);
+  // };
 
-  const handleChange = (value: string) => {
-    console.log("handleChange data:", value);
-    setValue(value);
-  };
+  // const updateCheckedRadioValues = (key: string, b: boolean) => {
+  //   console.log("updateCheckedRadioValues key:", key, ", value:", b);
+  //   let updatedCheckedRadio = { ...checkedRadio, [key]: b };
+  //   console.log("updatedCheckedRadio:", updatedCheckedRadio);
+  //   setCheckedRadio(updatedCheckedRadio);
+  // };
 
-  const updateCheckedRadioValues = (key: string, b: boolean) => {
-    console.log("updateCheckedRadioValues key:", key, ", value:", b);
-    let updatedCheckedRadio = { ...checkedRadio, [key]: b };
-    console.log("updatedCheckedRadio:", updatedCheckedRadio);
-    setCheckedRadio(updatedCheckedRadio);
-  };
+  // const handleDateChange = (date: Date) => {
+  //   console.log("handleDateChange date:", date);
+  //   setSelectedDate(date);
+  // };
 
-  const handleDateChange = (date: Date) => {
-    console.log("handleDateChange date:", date);
-    setSelectedDate(date);
-  };
-
-  const handleButtonClick = () => {
-    console.log("Button clicked!");
-  };
+  // const handleButtonClick = () => {
+  //   console.log("Button clicked!");
+  // };
 
   return (
     <ThemeProvider theme={theme}>

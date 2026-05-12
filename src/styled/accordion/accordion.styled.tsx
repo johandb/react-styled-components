@@ -8,7 +8,6 @@ interface AccordionProps {
   value?: string;
   w?: number;
   m?: number;
-  p?: number;
   children: React.ReactNode;
 }
 
@@ -17,21 +16,27 @@ export const Accordion = (props: AccordionProps) => {
 
   return (
     <AccordionContext.Provider value={{ active: active, multiple: props.multiple ?? false, setActive }}>
-      <StyledAccordion width={props.w ?? 100} margin={props.m ?? 5}>
+      <StyledAccordion $w={props.w ?? 100} $m={props.w ?? 5}>
         {props.children}
       </StyledAccordion>
     </AccordionContext.Provider>
   );
 };
 
-const StyledAccordion = styled.div<{ width: number; margin: number }>`
-  display: block;
+const StyledAccordion = styled.div<{ $w?: number; $m: number }>`
   box-sizing: border-box;
-  width: ${(props) => `${props.width}vw`};
-  margin: ${(props) => `${props.margin}px`};
-  border: 1px solid lightgray;
+  width: ${(props) => `${props.$w}vw`};
   border-radius: 10px;
+  border: 1px solid #f1f1f1;
+  margin: ${(props) => `${props.$m}px`};
   overflow: hidden;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+`;
+
+const StyledAccordionItem = styled.div`
+  &:not(:last-child) {
+    border-bottom: 1px solid #e0e0e0;
+  }
 `;
 
 interface AccordionHeaderProps {
@@ -57,22 +62,22 @@ export const AccordionHeader = (props: AccordionHeaderProps) => {
   };
 
   return (
-    <StyledAccordionHeader onClick={handleClick}>
-      <StyledAccordionTitle>
-        <div>{props.title}</div>
-        <div>{open ? "-" : "+"}</div>
-      </StyledAccordionTitle>
-      {open && props.children}
-    </StyledAccordionHeader>
+    <StyledAccordionItem>
+      <StyledAccordionHeader onClick={handleClick}>
+        <StyledAccordionTitle>
+          <span>{props.title}</span>
+          <span>{open ? "-" : "+"}</span>
+        </StyledAccordionTitle>
+        {open && props.children}
+      </StyledAccordionHeader>
+    </StyledAccordionItem>
   );
 };
 
 const StyledAccordionHeader = styled.div`
-  display: flex;
-  flex-direction: column;
-  &:not(:last-child) {
-    border-bottom: 1px solid lightgray;
-  }
+  padding: 0px;
+  font-size: 18px;
+  cursor: pointer;
 `;
 
 const StyledAccordionTitle = styled.div`
@@ -83,8 +88,10 @@ const StyledAccordionTitle = styled.div`
   font-family: ${theme.font.defaultFamily};
   font-weight: 400;
   padding: 5px 10px 5px 10px;
+  line-height: 1.8;
+  transition: background-color 0.3s ease;
   &:hover {
-    cursor: pointer;
+    background-color: #f1f1f1;
   }
 `;
 
@@ -98,6 +105,7 @@ export const AccordionPanel = (props: AccordionPanelProps) => {
 
 const StyledAccordionPanel = styled.div`
   padding: 10px;
-  font-family: ${theme.font.defaultFamily};
-  font-size: 1rem;
+  display: block;
+  font-size: 18px;
+  line-height: 1.5;
 `;
