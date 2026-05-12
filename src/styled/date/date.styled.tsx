@@ -95,7 +95,7 @@ interface DateTimeProps {
 
 export const DatePicker = (props: DateTimeProps) => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const [currentDate] = useState<Date>(new Date());
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [dateValues, setDateValues] = useState<{ record: { day: number; month: number; year: number }[] }[]>([]);
 
