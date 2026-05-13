@@ -1,23 +1,27 @@
 import styled from "styled-components";
+import type { Color } from "../../components/types/color";
+import { Color2Value } from "../../components/utils/styled.utils";
 
 interface ContainerProps {
-  gap?: number;
+  bg?: Color;
   children: React.ReactNode;
 }
 
 export const Container = (props: ContainerProps) => {
-  let gap = props.gap ?? 0;
-  return <StyledContainer $gap={gap}>{props.children}</StyledContainer>;
+  let bg = Color2Value(props.bg ?? "inherit");
+
+  return <StyledContainer $bg={bg}>{props.children}</StyledContainer>;
 };
 
-const StyledContainer = styled.div<{ $gap: number }>`
+const StyledContainer = styled.div<{ $bg: string }>`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: start;
   align-content: start;
   flex-wrap: wrap;
   justify-content: flex-start;
-  gap: ${(props) => `${props.$gap}px`};
-  background-color: inherit;
-  box-sizing: border-box;
+  gap: 0;
+  background-color: ${(props) => props.$bg};
+  overflow: hidden;
+  width: 100%;
 `;
