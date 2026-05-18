@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import type { Color } from "../../components/types/color";
-import { Color2Value } from "../../components/utils/styled.utils";
+import type { Color } from "../types/color";
+import { colorValue } from "../utils/styled.utils";
 
 interface FlexProps {
   gap?: number;
@@ -15,7 +15,7 @@ interface FlexColProps {
 }
 
 export const FlexCol = (props: FlexColProps) => {
-  let bg = Color2Value(props.bg ?? "inherit");
+  let bg = colorValue(props.bg ?? "inherit");
 
   return (
     <StyledFlexCol span={props.span} $bg={bg}>
@@ -25,7 +25,7 @@ export const FlexCol = (props: FlexColProps) => {
 };
 
 export const Flex = (props: FlexProps) => {
-  let bg = Color2Value(props.bg ?? "inherit");
+  let bg = colorValue(props.bg ?? "inherit");
 
   return (
     <StyledFlex $bg={bg} $gap={props.gap}>
@@ -41,6 +41,10 @@ const StyledFlex = styled.div<{ $gap?: number; $bg: string }>`
   gap: ${(props) => `${props.$gap ?? 0}px;`};
   background-color: ${(props) => props.$bg};
   width: 100%;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 `;
 
 const StyledFlexCol = styled.div<{ span?: number; $bg: string }>`

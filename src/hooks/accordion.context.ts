@@ -3,6 +3,8 @@ import { createContext, useContext } from "react";
 export interface AccordionContextType {
   active: string;
   multiple: boolean;
+  bg: string;
+  fg: string;
   setActive: (item: string) => void;
 }
 

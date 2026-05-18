@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Size } from "../components/types/size";
+import type { Size } from "../styled/types/size";
 import { StyledConfig } from "./styled.config";
 
 const useSwitch = (defaultSize: Size = "sm") => {

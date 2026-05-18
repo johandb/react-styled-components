@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { theme } from "../../components/themes/themes";
 import { Stack } from "../stack/stack.styled";
 import { Text } from "../text/styled.text";
+import { theme } from "../themes/themes";
 
 const StyledDate = styled.div`
   margin: 5px 0px 5px 0px;

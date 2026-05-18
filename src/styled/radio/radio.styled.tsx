@@ -1,11 +1,11 @@
 import { use, useState, type ReactNode } from "react";
 import styled from "styled-components";
-import { theme } from "../../components/themes/themes";
-import type { Color } from "../../components/types/color";
-import type { Size } from "../../components/types/size";
-import { Color2Value } from "../../components/utils/styled.utils";
 import { RadioContext } from "../../hooks/radio.context";
 import useRadio from "../../hooks/use-radio";
+import { theme } from "../themes/themes";
+import type { Color } from "../types/color";
+import type { Size } from "../types/size";
+import { colorValue } from "../utils/styled.utils";
 
 interface RadioProps {
   color?: Color;
@@ -33,7 +33,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
   const handleChange = (data: string) => {
     //console.log("handleChange RadioGroup :", data);
     setValue(data);
-    props.onChange!(data);
+    props.onChange?.(data);
   };
 
   return (
@@ -50,7 +50,7 @@ export const Radio = (props: RadioProps) => {
   let radio = useRadio(size);
 
   let color = props.color
-    ? Color2Value(props.color)
+    ? colorValue(props.color)
     : props.disabled
       ? theme.colors.defaultDisabledColor
       : theme.colors.defaultRadioButton;
@@ -63,8 +63,8 @@ export const Radio = (props: RadioProps) => {
     props.onChange ? props.onChange(checked ?? false) : {};
   };
 
-  const handleRadioClick = (value: boolean | string) => {
-    console.log("handleRadio:", value);
+  const handleRadioClick = () => {
+    //console.log("handleRadio:", value);
     ctx?.onChange(props.value);
     onChange?.(checked);
   };
@@ -81,7 +81,7 @@ export const Radio = (props: RadioProps) => {
         $b={radio.b}
         checked={checked ?? false}
         color={color}
-        onClick={() => (props.disabled ? {} : handleRadioClick(ctx ? props.value : (checked ?? false)))}
+        onClick={() => (props.disabled ? {} : handleRadioClick())}
       />
       <StyledRadioLabel $fs={radio.fs} $p={radio.p} disabled={props.disabled ?? false}>
         {props.children}
@@ -113,7 +113,7 @@ const StyledRadio = styled.div<{ color: string; checked: boolean; $b: string; $h
   &:hover {
     cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   }
-  margin: 5px;
+  margin: 10px 5px 0px 5px;
 `;
 
 Radio.Group = RadioGroup;

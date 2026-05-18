@@ -1,11 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { theme } from "../../components/themes/themes";
-import type { Color } from "../../components/types/color";
-import type { Size } from "../../components/types/size";
-import { Color2Value } from "../../components/utils/styled.utils";
 import useSwitch from "../../hooks/use-switch";
 import { Text } from "../text/styled.text";
+import { theme } from "../themes/themes";
+import type { Color } from "../types/color";
+import type { Size } from "../types/size";
+import { colorValue } from "../utils/styled.utils";
 
 interface SwitchProps {
   color?: Color;
@@ -20,7 +20,7 @@ export const Switch = (props: SwitchProps) => {
 
   let sw = useSwitch(props.size ?? "sm");
 
-  let color = Color2Value(props.color ?? theme.colors.primary);
+  let color = colorValue(props.color ?? theme.colors.primary);
 
   const handleToggle = () => {
     let newToggle = !toggle;

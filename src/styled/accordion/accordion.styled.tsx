@@ -1,36 +1,69 @@
 import { useLayoutEffect, useState } from "react";
 import styled from "styled-components";
-import { theme } from "../../components/themes/themes";
 import { AccordionContext, useAccordionContext } from "../../hooks/accordion.context";
+import { theme } from "../themes/themes";
+import type { Color } from "../types/color";
+import { colorValue } from "../utils/styled.utils";
 
 interface AccordionProps {
   multiple?: boolean;
   value?: string;
   w?: number;
   m?: number;
+  mt?: number;
+  mr?: number;
+  mb?: number;
+  ml?: number;
+  bg?: Color;
+  fg?: Color;
   children: React.ReactNode;
 }
 
 export const Accordion = (props: AccordionProps) => {
   const [active, setActive] = useState(props.value ?? "");
 
+  let margin = "0px";
+  if (props.m) {
+    margin = `${props.m}px`;
+  } else {
+    margin = props.mt ? `${props.mt}px` : margin;
+    margin = `${margin} ${props.mr ? `${props.mr}px` : `0px`}`;
+    margin = `${margin} ${props.mb ? `${props.mb}px` : `0px`}`;
+    margin = `${margin} ${props.ml ? `${props.ml}px` : `0px`}`;
+  }
+
   return (
-    <AccordionContext.Provider value={{ active: active, multiple: props.multiple ?? false, setActive }}>
-      <StyledAccordion $w={props.w ?? 100} $m={props.w ?? 5}>
+    <AccordionContext.Provider
+      value={{
+        active: active,
+        multiple: props.multiple ?? false,
+        setActive,
+        bg: props.bg ? colorValue(props.bg) : theme.colors.primary,
+        fg: props.fg ? colorValue(props.fg) : theme.colors.white,
+      }}
+    >
+      <StyledAccordion
+        $w={props.w ? `${props.w}px` : "100vw"}
+        $m={margin}
+        $bg={props.bg ? colorValue(props.bg) : theme.colors.primary}
+        $c={props.fg ? colorValue(props.fg) : theme.colors.white}
+      >
         {props.children}
       </StyledAccordion>
     </AccordionContext.Provider>
   );
 };
 
-const StyledAccordion = styled.div<{ $w?: number; $m: number }>`
+const StyledAccordion = styled.div<{ $w?: string; $m: string; $bg: string; $c: string }>`
   box-sizing: border-box;
-  width: ${(props) => `${props.$w}vw`};
+  width: ${(props) => props.$w};
   border-radius: 10px;
   border: 1px solid #f1f1f1;
-  margin: ${(props) => `${props.$m}px`};
+  margin: ${(props) => props.$m};
   overflow: hidden;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  background-color: ${(props) => props.$bg};
+  color: ${(props) => props.$c};
 `;
 
 const StyledAccordionItem = styled.div`
@@ -48,7 +81,7 @@ interface AccordionHeaderProps {
 export const AccordionHeader = (props: AccordionHeaderProps) => {
   const [open, setOpen] = useState(false);
 
-  const { active, multiple, setActive } = useAccordionContext();
+  const { active, multiple, setActive, fg, bg } = useAccordionContext();
 
   useLayoutEffect(() => {
     if (!multiple) {
@@ -64,7 +97,7 @@ export const AccordionHeader = (props: AccordionHeaderProps) => {
   return (
     <StyledAccordionItem>
       <StyledAccordionHeader onClick={handleClick}>
-        <StyledAccordionTitle>
+        <StyledAccordionTitle $bg={bg} $fg={fg}>
           <span>{props.title}</span>
           <span>{open ? "-" : "+"}</span>
         </StyledAccordionTitle>
@@ -80,7 +113,7 @@ const StyledAccordionHeader = styled.div`
   cursor: pointer;
 `;
 
-const StyledAccordionTitle = styled.div`
+const StyledAccordionTitle = styled.div<{ $bg: string; $fg: string }>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -88,10 +121,12 @@ const StyledAccordionTitle = styled.div`
   font-family: ${theme.font.defaultFamily};
   font-weight: 400;
   padding: 5px 10px 5px 10px;
-  line-height: 1.8;
+  line-height: 1.6;
   transition: background-color 0.3s ease;
   &:hover {
-    background-color: #f1f1f1;
+    /* background-color: #f1f1f1; */
+    background-color: ${(props) => props.$fg};
+    color: ${(props) => props.$bg};
   }
 `;
 
@@ -107,5 +142,10 @@ const StyledAccordionPanel = styled.div`
   padding: 10px;
   display: block;
   font-size: 18px;
-  line-height: 1.5;
+  line-height: 1.4;
+  color: black;
+  background-color: white;
 `;
+
+Accordion.Header = AccordionHeader;
+Accordion.Panel = AccordionPanel;

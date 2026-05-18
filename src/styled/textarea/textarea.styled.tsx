@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { theme } from "../../components/themes/themes";
-import type { Size } from "../../components/types/size";
 import { Text } from "../text/styled.text";
+import { theme } from "../themes/themes";
+import type { Size } from "../types/size";
 
 interface InputProps {
   label?: string;

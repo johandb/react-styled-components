@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { theme } from "../../components/themes/themes";
-import type { Color } from "../../components/types/color";
-import type { Size } from "../../components/types/size";
-import { Color2Value } from "../../components/utils/styled.utils";
+import { theme } from "../themes/themes";
+import type { Color } from "../types/color";
+import type { Size } from "../types/size";
+import { colorValue } from "../utils/styled.utils";
 
 interface LabelProps {
   label: string;
@@ -29,7 +29,7 @@ export const Text = (props: LabelProps) => {
   let size = props.size ? props.size : "sm";
 
   let styleProps: LabelStyleProps = {
-    color: props.color ? Color2Value(props.color) : theme.colors.black,
+    color: props.color ? colorValue(props.color) : theme.colors.black,
     mt: `${props.mt ?? 0}px`,
     mr: `${props.mr ?? 0}px`,
     mb: `${props.mb ?? 0}px`,

@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { theme } from "../../components/themes/themes";
-import type { Color } from "../../components/types/color";
-import type { Size } from "../../components/types/size";
-import type { Variant } from "../../components/types/variant";
-import { Color2Value } from "../../components/utils/styled.utils";
+import { theme } from "../themes/themes";
+import type { Color } from "../types/color";
+import type { Size } from "../types/size";
+import type { Variant } from "../types/variant";
+import { colorValue } from "../utils/styled.utils";
 
 interface ButtonProps {
   color?: Color;
@@ -34,7 +34,7 @@ export const TextButton = styled.button<{ color?: Color }>`
   &:hover {
     background: #eee;
   }
-  color: ${(props) => (props.color ? Color2Value(props.color) : theme.colors.black)};
+  color: ${(props) => (props.color ? colorValue(props.color) : theme.colors.black)};
   display: block;
 `;
 
@@ -46,7 +46,7 @@ export const Button = (props: ButtonProps) => {
     fontSize: size === "sm" ? "0.8rem" : size === "md" ? "0.9rem" : size === "lg" ? "1.1rem" : "1.3rem",
     margin: props.margin ? `${props.margin}px` : "2px",
     radius: props.radius || 7,
-    color: props.color ? Color2Value(props.color) : theme.colors.primary,
+    color: props.color ? colorValue(props.color) : theme.colors.primary,
     variant: props.variant ? props.variant : "filled",
     font: theme.font.defaultFamily,
   };

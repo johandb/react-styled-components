@@ -1,7 +1,7 @@
 import { theme } from "../themes/themes";
 import type { Size } from "../types/size";
 
-export const Color2Value = (color: string) => {
+export const colorValue = (color: string) => {
   switch (color) {
     case "black":
       return theme.colors.black;

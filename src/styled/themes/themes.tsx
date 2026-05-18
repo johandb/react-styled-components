@@ -12,7 +12,7 @@ export const theme = {
     blue: "#0088e4",
     brown: "#5d4037",
     cyan: "#70ffd9",
-    darkgray: "#09090a",
+    darkgray: "#414142",
     gray: "#b3b1b2",
     green: "#1bc455",
     indigo: "#424e88",
