@@ -26,6 +26,7 @@ const App = () => {
   const [radioValue, setRadioValue] = useState("react");
   const [inputValue, setInputValue] = useState("");
   const [age, setAge] = useState("0");
+  const [toggle, setToggle] = useState(false);
 
   const header: ColumnHeader = {
     bg: "black",
@@ -40,6 +41,11 @@ const App = () => {
     ["Dilenia Ventura", "Dominicaanse Republiek"],
     ["Nikki Bellini", "America"],
   ];
+
+  const handleToggle = (size: string, value: boolean) => {
+    console.log("toggle:", size, ", value:", value);
+    setToggle(value);
+  };
 
   const handleRowCick = (index: number) => {
     console.log("row:", index);
@@ -145,11 +151,11 @@ const App = () => {
       <div>
         <h4>Switches</h4>
         <Group>
-          <Switch size="xs" label="I agree" color="orange" />
-          <Switch size="sm" label="I agree" color="orange" />
-          <Switch size="md" label="I agree" color="orange" />
-          <Switch size="lg" label="I agree" color="orange" />
-          <Switch size="xl" label="I agree" color="orange" />
+          <Switch onChange={(b) => handleToggle("xs", b)} size="xs" label="I agree" color="orange" />
+          <Switch onChange={(b) => handleToggle("sm", b)} size="sm" label="I agree" color="orange" />
+          <Switch onChange={(b) => handleToggle("md", b)} size="md" label="I agree" color="orange" />
+          <Switch onChange={(b) => handleToggle("lg", b)} size="lg" label="I agree" color="orange" />
+          <Switch onChange={(b) => handleToggle("xl", b)} size="xl" label="I agree" color="orange" />
         </Group>
         <br />
         <hr />
@@ -285,10 +291,10 @@ const App = () => {
       {/* <Container> */}
       {/* <Stack> */}
       {/* <h2>Demo Controls</h2> */}
-      {showCheckboxes()}
-      {showRadios()}
+      {/* {showCheckboxes()} */}
+      {/* {showRadios()} */}
       {/* {showInputs()} */}
-      {/* {showSwitches()} */}
+      {showSwitches()}
       {/* {showAccordion()} */}
       {/* {showAlerts()} */}
       {/* {showButtons()} */}

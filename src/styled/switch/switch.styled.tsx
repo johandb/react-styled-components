@@ -12,11 +12,12 @@ interface SwitchProps {
   label?: string;
   position?: "left" | "right";
   size?: Size;
+  on?: boolean;
   onChange?: (toggle: boolean) => void;
 }
 
 export const Switch = (props: SwitchProps) => {
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(props.on ?? false);
 
   let sw = useSwitch(props.size ?? "sm");
 
@@ -32,13 +33,9 @@ export const Switch = (props: SwitchProps) => {
   return (
     <StyledSwitchContainer onClick={() => handleToggle()} $position={props.position ?? "left"}>
       <StyledSwitch $w={sw.w} $h={sw.h} $cw={sw.cw} $ch={sw.ch} $left={sw.left} $toggle={toggle} color={color} />
-      <Text
-        label={props.label ?? ""}
-        size={props.size}
-        ml={5}
-        mr={5}
-        color={toggle ? "black" : theme.colors.defaultDisabledColor}
-      />
+      <Text size={props.size} ml={5} mr={5} color={toggle ? "black" : theme.colors.defaultDisabledColor}>
+        {props.label ?? ""}
+      </Text>
     </StyledSwitchContainer>
   );
 };
