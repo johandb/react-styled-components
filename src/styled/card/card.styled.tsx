@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { theme } from "../themes/themes";
 import type { Color } from "../types/color";
-import { colorValue } from "../utils/styled.utils";
+import { themeColors } from "../utils/styled.utils";
 
 export const Card = (props: { color?: Color; children: React.ReactNode }) => {
-  let color = props.color ? colorValue(props.color) : theme.colors.white;
+  let color = themeColors[props.color as keyof typeof themeColors]?.value ?? theme.colors.white;
   return <StyledCard color={color}>{props.children}</StyledCard>;
 };
 

@@ -1,58 +1,28 @@
 import { theme } from "../themes/themes";
-import type { Size } from "../types/size";
+import type { Color } from "../types/color";
 
-export const colorValue = (color: string) => {
-  switch (color) {
-    case "black":
-      return theme.colors.black;
-    case "blue":
-      return theme.colors.blue;
-    case "brown":
-      return theme.colors.brown;
-    case "cyan":
-      return theme.colors.cyan;
-    case "darkgray":
-      return theme.colors.darkgray;
-    case "gray":
-      return theme.colors.gray;
-    case "green":
-      return theme.colors.green;
-    case "indigo":
-      return theme.colors.indigo;
-    case "lightblue":
-      return theme.colors.lightblue;
-    case "lightgray":
-      return theme.colors.lightgray;
-    case "lime":
-      return theme.colors.lime;
-    case "magenta":
-      return theme.colors.magenta;
-    case "yellow":
-      return theme.colors.yellow;
-    case "orange":
-      return theme.colors.orange;
-    case "pink":
-      return theme.colors.pink;
-    case "purple":
-      return theme.colors.purple;
-    case "red":
-      return theme.colors.red;
-    case "teal":
-      return theme.colors.teal;
-    case "violet":
-      return theme.colors.violet;
-    case "white":
-      return theme.colors.white;
-    default:
-      return color;
-  }
-};
+interface IColor {
+  value: string;
+}
 
-export const Size2Value = (size: Size) => {
-  switch (size) {
-    case "sm":
-    case "md":
-    case "lg":
-    case "xl":
-  }
+export const themeColors: Record<Color, IColor> = {
+  black: { value: theme.colors.black },
+  blue: { value: theme.colors.blue },
+  brown: { value: theme.colors.brown },
+  cyan: { value: theme.colors.cyan },
+  darkgray: { value: theme.colors.darkgray },
+  gray: { value: theme.colors.gray },
+  green: { value: theme.colors.green },
+  indigo: { value: theme.colors.indigo },
+  lightblue: { value: theme.colors.lightblue },
+  lime: { value: theme.colors.lime },
+  magenta: { value: theme.colors.magenta },
+  orange: { value: theme.colors.orange },
+  pink: { value: theme.colors.pink },
+  purple: { value: theme.colors.purple },
+  red: { value: theme.colors.red },
+  teal: { value: theme.colors.teal },
+  violet: { value: theme.colors.violet },
+  white: { value: theme.colors.white },
+  yellow: { value: theme.colors.yellow },
 };

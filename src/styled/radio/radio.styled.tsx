@@ -1,11 +1,11 @@
 import { use, useState, type ReactNode } from "react";
 import styled from "styled-components";
-import { RadioContext } from "../../hooks/radio.context";
-import useRadio from "../../hooks/use-radio";
+import { RadioContext } from "../hooks/radio.context";
+import useRadio from "../hooks/use-radio";
 import { theme } from "../themes/themes";
 import type { Color } from "../types/color";
 import type { Size } from "../types/size";
-import { colorValue } from "../utils/styled.utils";
+import { themeColors } from "../utils/styled.utils";
 
 interface RadioProps {
   color?: Color;
@@ -46,18 +46,18 @@ export const RadioGroup = (props: RadioGroupProps) => {
 export const Radio = (props: RadioProps) => {
   let ctx = use(RadioContext);
 
-  let size = props.size ?? "md";
+  let size = props.size ?? "sm";
   let radio = useRadio(size);
 
-  let color = props.color
-    ? colorValue(props.color)
-    : props.disabled
-      ? theme.colors.defaultDisabledColor
-      : theme.colors.defaultRadioButton;
-  //let checked = ctx?.value === props.value ? true : (props.checked ?? false);
+  let disabled = props.disabled ?? false;
+  const contextChecked = ctx?.value === props.value;
+  let checked = ctx ? contextChecked : (props.checked ?? false);
 
-  const contextChecked = ctx ? ctx.value === props.value : undefined;
-  let checked = contextChecked ?? props.checked;
+  let color = themeColors[props.color as keyof typeof themeColors]?.value ?? theme.colors.defaultRadioButton;
+  color = disabled ? theme.colors.defaultDisabledColor : color;
+
+  let bg = disabled ? theme.colors.defaultDisabledColor : color;
+  bg = checked ? color : theme.colors.white;
 
   const onChange = (checked: boolean | undefined) => {
     props.onChange ? props.onChange(checked ?? false) : {};
@@ -75,13 +75,14 @@ export const Radio = (props: RadioProps) => {
   return (
     <StyledRadioContainer $position={props.position ?? "left"}>
       <StyledRadio
-        disabled={props.disabled ?? false}
+        disabled={disabled}
         $h={radio.h}
         $w={radio.w}
         $b={radio.b}
-        checked={checked ?? false}
+        checked={checked}
         color={color}
-        onClick={() => (props.disabled ? {} : handleRadioClick())}
+        $bg={bg}
+        onClick={() => (disabled ? {} : handleRadioClick())}
       />
       <StyledRadioLabel $fs={radio.fs} $p={radio.p} disabled={props.disabled ?? false}>
         {props.children}
@@ -102,8 +103,16 @@ const StyledRadioLabel = styled.div<{ $fs: string; $p: string; disabled: boolean
   color: ${(props) => (props.disabled ? theme.colors.defaultDisabledColor : "inherit")};
 `;
 
-const StyledRadio = styled.div<{ color: string; checked: boolean; $b: string; $h: string; $w: string; disabled: boolean }>`
-  background: ${(props) => (props.disabled ? theme.colors.defaultDisabledColor : props.checked ? props.color : theme.colors.white)};
+const StyledRadio = styled.div<{
+  color: string;
+  $bg: string;
+  checked: boolean;
+  $b: string;
+  $h: string;
+  $w: string;
+  disabled: boolean;
+}>`
+  background: ${(props) => props.$bg};
   border-radius: 50%;
   border: ${(props) => props.$b} solid white;
   height: ${(props) => props.$h};

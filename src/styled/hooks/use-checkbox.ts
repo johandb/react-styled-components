@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Size } from "../styled/types/size";
+import type { Size } from "../types/size";
 import { StyledConfig } from "./styled.config";
 
 const useCheckbox = (defaultSize: Size = "sm") => {

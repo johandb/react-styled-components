@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import type { Color } from "../types/color";
-import { colorValue } from "../utils/styled.utils";
+import { themeColors } from "../utils/styled.utils";
 
 interface FlexProps {
   gap?: number;
@@ -15,7 +15,7 @@ interface FlexColProps {
 }
 
 export const FlexCol = (props: FlexColProps) => {
-  let bg = colorValue(props.bg ?? "inherit");
+  let bg = themeColors[props.bg as keyof typeof themeColors]?.value ?? props.bg ?? "inherit";
 
   return (
     <StyledFlexCol span={props.span} $bg={bg}>
@@ -25,7 +25,7 @@ export const FlexCol = (props: FlexColProps) => {
 };
 
 export const Flex = (props: FlexProps) => {
-  let bg = colorValue(props.bg ?? "inherit");
+  let bg = themeColors[props.bg as keyof typeof themeColors]?.value ?? props.bg ?? "inherit";
 
   return (
     <StyledFlex $bg={bg} $gap={props.gap}>

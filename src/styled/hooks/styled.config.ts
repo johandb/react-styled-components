@@ -1,0 +1,167 @@
+export const StyledConfig = {
+  checkbox: {
+    xs: {
+      fs: "10px",
+      h: "16px",
+      w: "16px",
+      mh: "12px",
+      mw: "7px",
+      m: "0px 0px 0px 4px",
+    },
+    sm: {
+      fs: "14px",
+      h: "18px",
+      w: "18px",
+      mh: "13px",
+      mw: "7px",
+      m: "1px 0px 0px 5px",
+    },
+    md: {
+      fs: "18px",
+      h: "22px",
+      w: "22px",
+      mh: "16px",
+      mw: "10px",
+      m: "0px 0px 0px 5px",
+    },
+    lg: {
+      fs: "20px",
+      h: "26px",
+      w: "26px",
+      mh: "20px",
+      mw: "11px",
+      m: "0px 0px 0px 6px",
+    },
+    xl: {
+      fs: "24px",
+      h: "30px",
+      w: "30px",
+      mh: "22px",
+      mw: "14px",
+      m: "0px 0px 0px 6px",
+    },
+  },
+  radio: {
+    xs: {
+      p: "5px 0px 0px 2px",
+      fs: "12px",
+      b: "2px",
+      h: "8px",
+      w: "8px",
+    },
+    sm: {
+      p: "6px 0px 0px 3px",
+      fs: "14px",
+      b: "3px",
+      h: "12px",
+      w: "12px",
+    },
+    md: {
+      p: "7px 0px 0px 3px",
+      fs: "16px",
+      b: "4px",
+      h: "18px",
+      w: "18px",
+    },
+    lg: {
+      p: "6px 0px 0px 3px",
+      fs: "20px",
+      b: "5px",
+      h: "22px",
+      w: "22px",
+    },
+    xl: {
+      p: "7px 0px 0px 3px",
+      fs: "22px",
+      b: "5px",
+      h: "26px",
+      w: "26px",
+    },
+  },
+  toggle: {
+    xs: {
+      w: 30,
+      h: 15,
+      cw: 0.7,
+      ch: 0.7,
+      left: 0.7,
+    },
+    sm: {
+      w: 35,
+      h: 20,
+      cw: 0.9,
+      ch: 0.9,
+      left: 0.9,
+    },
+    md: {
+      w: 40,
+      h: 23,
+      cw: 1.1,
+      ch: 1.1,
+      left: 1.0,
+    },
+    lg: {
+      w: 45,
+      h: 25,
+      cw: 1.2,
+      ch: 1.2,
+      left: 1.1,
+    },
+    xl: {
+      w: 50,
+      h: 28,
+      cw: 1.3,
+      ch: 1.3,
+      left: 1.3,
+    },
+  },
+  input: {
+    xs: {
+      pr: 25,
+      pt: 5,
+      fs: 0.6,
+    },
+    sm: {
+      pr: 25,
+      pt: 7,
+      fs: 0.8,
+    },
+    md: {
+      pr: 27,
+      pt: 7,
+      fs: 1.0,
+    },
+    lg: {
+      pr: 30,
+      pt: 10,
+      fs: 1.2,
+    },
+    xl: {
+      pr: 35,
+      pt: 8,
+      fs: 1.4,
+    },
+  },
+  button: {
+    xs: {
+      p: "5px 10px",
+      fs: "0.7rem",
+    },
+    sm: {
+      p: "5px 10px",
+      fs: "0.8rem",
+    },
+    md: {
+      p: "5px 10px",
+      fs: "0.9rem",
+    },
+    lg: {
+      p: "5px 15px",
+      fs: "1.1rem",
+    },
+    xl: {
+      p: "5px 15px",
+      fs: "1.3rem",
+    },
+  },
+};

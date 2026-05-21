@@ -23,13 +23,13 @@ export const Group = (props: GroupProps) => {
   let margins = `${props.mt ?? 0}px ${props.mr ?? 0}px ${props.mb ?? 0}px ${props.ml ?? 0}px`;
 
   return (
-    <StyledGroup $full={full} $gap={gap} $justify={justify} $align={align} wrap={wrap} margins={margins}>
+    <StyledGroup $full={full} $gap={gap} $justify={justify} $align={align} wrap={wrap} $margins={margins}>
       {props.children}
     </StyledGroup>
   );
 };
 
-const StyledGroup = styled.div<{ $full: boolean; $justify: string; $gap: number; $align: string; wrap: string; margins: string }>`
+const StyledGroup = styled.div<{ $full: boolean; $justify: string; $gap: number; $align: string; wrap: string; $margins: string }>`
   display: flex;
   flex-direction: row;
   justify-content: ${(props) => props.$justify};
@@ -38,5 +38,5 @@ const StyledGroup = styled.div<{ $full: boolean; $justify: string; $gap: number;
   flex-wrap: ${(props) => props.wrap};
   ${(props) => (props.$full ? "width: 100%;" : "")}
   background-color: inherit;
-  margin: ${(props) => props.margins};
+  margin: ${(props) => props.$margins};
 `;

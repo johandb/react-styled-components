@@ -1,87 +1,326 @@
+import { useState } from "react";
+import { FaPeopleArrows, FaUser } from "react-icons/fa";
+import { FaLock } from "react-icons/fa6";
 import { Accordion } from "./styled/accordion/accordion.styled";
-import { Container } from "./styled/container/container.styled";
+import { Alert } from "./styled/alert/alert.styled";
+import { Button, TextButton } from "./styled/button/button.styled";
+import { Checkbox } from "./styled/checkbox/checkbox.styled";
+import { Group } from "./styled/group/group.styled";
+import { NumberInput, PasswordInput, TextInput } from "./styled/input/input.styled";
+import { Radio } from "./styled/radio/radio.styled";
+import { Select } from "./styled/select/select.styled";
+import { Stack } from "./styled/stack/stack.styled";
+import { Switch } from "./styled/switch/switch.styled";
+import { Table, type ColumnHeader } from "./styled/table/table.styled";
+import { Text } from "./styled/text/styled.text";
+import { TextArea } from "./styled/textarea/textarea.styled";
+
+import "./App.css";
 
 const App = () => {
-  // const [country, setCountry] = useState("us");
-  // const [checkValues, setCheckValues] = useState<string[]>(["vue"]);
-  // const [checked, setChecked] = useState(false);
+  const [country, setCountry] = useState("us");
+  const [checkValues, setCheckValues] = useState<string[]>(["vue"]);
+  const [checked, setChecked] = useState(true);
+  const [radioChecked, setRadioChecked] = useState(false);
+  const [radioDisabled, setRadioDisabled] = useState(true);
+  const [radioValue, setRadioValue] = useState("react");
+  const [inputValue, setInputValue] = useState("");
+  const [age, setAge] = useState("0");
 
-  // const header: ColumnHeader = {
-  //   bg: "black",
-  //   columns: [
-  //     { id: "name", title: "Name" },
-  //     { id: "country", title: "Country" },
-  //   ],
-  // };
+  const header: ColumnHeader = {
+    bg: "black",
+    columns: [
+      { id: "name", title: "Name" },
+      { id: "country", title: "Country" },
+    ],
+  };
 
-  // const data = [
-  //   ["Johan den Boer", "Netherlands"],
-  //   ["Dilenia Ventura", "Dominicaanse Republiek"],
-  //   ["Nikki Bellini", "America"],
-  // ];
+  const data = [
+    ["Johan den Boer", "Netherlands"],
+    ["Dilenia Ventura", "Dominicaanse Republiek"],
+    ["Nikki Bellini", "America"],
+  ];
 
-  // const newData = new Array(15).fill(1).map((_, index) => {
-  //   return new Array(5).fill(1).map((_, cellIndex) => `row: ${index + 1}, col: ${cellIndex + 1}`);
-  // });
+  const handleRowCick = (index: number) => {
+    console.log("row:", index);
+  };
 
-  //console.log("newData:", newData);
+  const values = [
+    { label: "America", value: "us" },
+    { label: "Netherlands", value: "nl" },
+    { label: "Spain", value: "es" },
+  ];
 
-  // const handleRowCick = (index: number) => {
-  //   console.log("row:", index);
-  // };
+  const handleButtonClick = () => {
+    console.log("Button clicked");
+  };
 
-  // const values = [
-  //   { label: "America", value: "us" },
-  //   { label: "Netherlands", value: "nl" },
-  //   { label: "Spain", value: "es" },
-  // ];
+  //console.log("checkValues:", checkValues);
+  //console.log("radioChecked:", radioChecked);
+  //console.log("radioValue:", radioValue);
+  // console.log("selected country:", country);
+
+  const showCheckboxes = () => {
+    return (
+      <div>
+        <h4>Checkbox</h4>
+        <Group>
+          <Checkbox color="orange" size="xs" label="XS : I agree" checked={checked} onChange={setChecked} />
+          <Checkbox color="blue" size="sm" label="SM : I agree" checked={checked} onChange={setChecked} />
+          <Checkbox color="blue" size="md" label="MD : I agree" checked={checked} onChange={setChecked} />
+          <Checkbox color="blue" size="lg" label="LG : I agree" checked={checked} onChange={setChecked} />
+          <Checkbox color="blue" size="xl" label="XL : I agree" checked={checked} onChange={setChecked} />
+        </Group>
+        <br />
+        <Checkbox.Group values={checkValues} onChange={setCheckValues}>
+          <Checkbox value="react" checked={checkValues.includes("react")} label="React" />
+          <Checkbox disabled value="vue" checked={checkValues.includes("vue")} label="Vue" />
+          <Checkbox color="orange" value="angular" checked={checkValues.includes("angular")} label="Angular" />
+        </Checkbox.Group>
+        <br />
+        <hr />
+        <br />
+      </div>
+    );
+  };
+
+  const showRadios = () => {
+    return (
+      <div>
+        <h4>Radio</h4>
+        <Group>
+          <Radio.Group value={radioValue} onChange={setRadioValue}>
+            <Radio value="react">React</Radio>
+            <Radio value="vue">Vue</Radio>
+            <Radio value="angular">Angular</Radio>
+          </Radio.Group>
+        </Group>
+        <Group>
+          <Radio size="xs" checked={radioChecked} onChange={(e) => setRadioChecked(!e)} value="angular">
+            XS:ok
+          </Radio>
+          <Radio size="sm" checked={radioChecked} onChange={(e) => setRadioChecked(!e)} value="angular">
+            SM:ok
+          </Radio>
+          <Radio size="md" disabled checked={radioDisabled} onChange={(e) => setRadioDisabled(!e)} value="angular">
+            MD:ok
+          </Radio>
+          <Radio size="lg" checked={radioChecked} onChange={(e) => setRadioChecked(!e)} value="angular">
+            LG:ok
+          </Radio>
+          <Radio size="xl" checked={radioChecked} onChange={(e) => setRadioChecked(!e)} value="angular">
+            XL:ok
+          </Radio>
+        </Group>
+        <br />
+        <hr />
+        <br />
+      </div>
+    );
+  };
+
+  const showInputs = () => {
+    return (
+      <div>
+        <h4>Inputs</h4>
+        <Stack mt={10} ml={5}>
+          <TextInput leftIcon={<FaPeopleArrows />} size="xs" value={inputValue} onChange={setInputValue} />
+          <TextInput leftIcon={<FaUser />} size="sm" value={inputValue} onChange={setInputValue} />
+          <TextInput leftIcon={<FaUser />} size="md" value={inputValue} onChange={setInputValue} />
+          <TextInput leftIcon={<FaLock />} size="lg" value={inputValue} onChange={setInputValue} />
+          <TextInput leftIcon={<FaUser size={24} />} label="Your username" size="xl" value={inputValue} onChange={setInputValue} />
+          <PasswordInput leftIcon={<FaUser />} label="Your password" size="sm" value={inputValue} onChange={setInputValue} />
+          <NumberInput label="Enter your age" size="sm" value={age} onChange={setAge} />
+          <TextArea label="Omschrijving" value="Hello" onChange={(value) => console.log("textvalue:", value)} />
+        </Stack>
+        <br />
+        <hr />
+        <br />
+      </div>
+    );
+  };
+
+  const showSwitches = () => {
+    return (
+      <div>
+        <h4>Switches</h4>
+        <Group>
+          <Switch size="xs" label="I agree" color="orange" />
+          <Switch size="sm" label="I agree" color="orange" />
+          <Switch size="md" label="I agree" color="orange" />
+          <Switch size="lg" label="I agree" color="orange" />
+          <Switch size="xl" label="I agree" color="orange" />
+        </Group>
+        <br />
+        <hr />
+        <br />
+      </div>
+    );
+  };
+
+  const showAccordion = () => {
+    return (
+      <div>
+        <h4>Accordion</h4>
+        <Accordion m={5}>
+          <Accordion.Header title="Header 1" value="1">
+            <Accordion.Panel>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+              type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining
+              essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+              passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            </Accordion.Panel>
+          </Accordion.Header>
+          <Accordion.Header title="Header 2" value="2">
+            <Accordion.Panel>
+              Donate: If you use this site regularly and would like to help keep the site on the Internet, please consider donating
+              a small sum to help pay for the hosting and bandwidth bill. There is no minimum donation, any sum is appreciated -
+              click here to donate using PayPal. Thank you for your support. Donate bitcoin: 16UQLq1HZ3CNwhvgrarV6pMoA2CDjb4tyF
+            </Accordion.Panel>
+          </Accordion.Header>
+        </Accordion>
+        <br />
+        <hr />
+        <br />
+      </div>
+    );
+  };
+
+  const showAlerts = () => {
+    return (
+      <div>
+        <h4>Alerts</h4>
+        <Alert w={500} m={10} title="Missing credentials">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. AtIcon officiis, quae tempore necessitatibus placeat saepe.
+        </Alert>
+        <Alert m={5} color="red">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. AtIcon officiis, quae tempore necessitatibus placeat saepe.
+        </Alert>
+        <br />
+        <hr />
+        <br />
+      </div>
+    );
+  };
+
+  const showButtons = () => {
+    return (
+      <div>
+        <h4>Buttons</h4>
+        <Button ml={10} mt={10} size="xs" onClick={handleButtonClick}>
+          Button XS
+        </Button>
+        <Button m={10} size="sm" onClick={handleButtonClick}>
+          Button SM
+        </Button>
+        <Button m={10} variant="outline" color="indigo" size="md" onClick={handleButtonClick}>
+          Button MD
+        </Button>
+        <Button m={10} size="lg" onClick={handleButtonClick}>
+          Button LG
+        </Button>
+        <Button m={10} size="xl" onClick={handleButtonClick}>
+          Button XL
+        </Button>
+        <TextButton color="orange" onClick={handleButtonClick}>
+          Text button
+        </TextButton>
+        <br />
+        <hr />
+        <br />
+      </div>
+    );
+  };
+
+  const showText = () => {
+    return (
+      <div>
+        <h4>Text</h4>
+        <Text m={5} size="xs">
+          Dit is een text
+        </Text>
+        <Text ml={5} size="sm">
+          Dit is een text
+        </Text>
+        <Text ml={5} size="md">
+          Dit is een text
+        </Text>
+        <Text ml={5} size="2.0">
+          Dit is een text 2 rem
+        </Text>
+        <Text ml={5} size="lg" fs="italic">
+          Dit is een text
+        </Text>
+        <Text ml={5} fw="normal" size="xl">
+          Dit is een text
+        </Text>
+        <br />
+        <hr />
+        <br />
+      </div>
+    );
+  };
+
+  const showTable = () => {
+    return (
+      <>
+        <Table m={10} handleRowClick={(index) => handleRowCick(index)} withBorder withColumnBorder data={data} header={header} />
+      </>
+    );
+  };
+
+  const showSelect = () => {
+    return (
+      <>
+        <Select label="Select a country" value={country} m={10} data={values} onChange={(value) => setCountry(value)} />
+      </>
+    );
+  };
+
+  let ok = true;
+  let c = "#e01616";
+
+  // xs = 26
+  // sm = 34
+  // md = 42
+  // lg = 50
+  // xl = 58
 
   return (
-    <Container>
-      <Accordion m={10} bg="blue">
-        <Accordion.Header title="Header 1" value="1">
-          <Accordion.Panel>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-            dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
-            book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
-            unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-            recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-          </Accordion.Panel>
-        </Accordion.Header>
-        <Accordion.Header title="Header 2" value="2">
-          <Accordion.Panel>
-            Donate: If you use this site regularly and would like to help keep the site on the Internet, please consider donating a
-            small sum to help pay for the hosting and bandwidth bill. There is no minimum donation, any sum is appreciated - click
-            here to donate using PayPal. Thank you for your support. Donate bitcoin: 16UQLq1HZ3CNwhvgrarV6pMoA2CDjb4tyF
-          </Accordion.Panel>
-        </Accordion.Header>
-      </Accordion>
-    </Container>
-    // <div>
-    //   <Radio.Group value="vue">
-    //     <Radio value="react">React</Radio>
-    //     <Radio value="vue">Vue</Radio>
-    //     <Radio value="angular">Angular</Radio>
-    //   </Radio.Group>
-    //   <br />
-    //   <br />
-    //   <Checkbox.Group values={checkValues} onChange={setCheckValues}>
-    //     <Checkbox size="sm" value="react" checked={checkValues.includes("react")} label="React" />
-    //     <Checkbox size="sm" value="vue" checked={checkValues.includes("vue")} label="Vue" />
-    //     <Checkbox size="sm" value="angular" checked={checkValues.includes("angular")} label="Angular" />
-    //   </Checkbox.Group>
-    //   <br />
-    //   <br />
-    //   <Checkbox size="sm" label="I agree" checked={checked} onChange={setChecked} />
-    //   <Alert m={5} title="Missing credentials">
-    //     Lorem ipsum dolor sit, amet consectetur adipisicing elit. AtIcon officiis, quae tempore necessitatibus placeat saepe.
-    //   </Alert>
-    //   <Alert m={5} color="red">
-    //     Lorem ipsum dolor sit, amet consectetur adipisicing elit. AtIcon officiis, quae tempore necessitatibus placeat saepe.
-    //   </Alert>
-    //   <Table handleRowClick={(index) => handleRowCick(index)} withBorder withColumnBorder data={data} header={header} />
-    //   <Select label="Select a country" value={country} ml={10} mt={10} data={values} onChange={(value) => setCountry(value)} />
-    // </div>
+    <>
+      <h2>Demo</h2>
+      <Checkbox color="orange" size="xl" label="SM : I agree" checked={checked} onChange={setChecked} />
+
+      <div>
+        <svg width="42px" height="42px" viewBox="-2.1 -2.1 25.20 25.20" xmlns="http://www.w3.org/2000/svg">
+          <g id="checkbox">
+            <g fill="none" stroke="#8a8989" strokeLinecap="round" strokeLinejoin="round">
+              <path
+                d="m2.5.5h10c1.1045695 0 2 .8954305 2 2v10c0 1.1045695-.8954305 2-2 2h-10c-1.1045695 0-2-.8954305-2-2v-10c0-1.1045695.8954305-2 2-2z"
+                strokeWidth="0.25"
+              />
+              {ok && <path d="m2.5 7.7 4 4 5-8" stroke={c} strokeWidth="2.0" />}
+            </g>
+          </g>
+        </svg>
+      </div>
+      {/* <Container> */}
+      {/* <Stack> */}
+      {/* <h2>Demo Controls</h2> */}
+      {/* {showCheckboxes()} */}
+      {/* {showRadios()} */}
+      {/* {showInputs()} */}
+      {/* {showSwitches()} */}
+      {/* {showAccordion()} */}
+      {/* {showAlerts()} */}
+      {/* {showButtons()} */}
+      {/* {showText()} */}
+      {/* {showTable()} */}
+      {/* {showSelect()} */}
+      {/* </Stack> */}
+      {/* </Container> */}
+    </>
   );
 };
 

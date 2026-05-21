@@ -1,53 +1,46 @@
 import styled from "styled-components";
+import { Box } from "../box/box";
 import { theme } from "../themes/themes";
 import type { Color } from "../types/color";
+import type { DefaultProps } from "../types/default.props";
 import type { Size } from "../types/size";
-import { colorValue } from "../utils/styled.utils";
+import { themeColors } from "../utils/styled.utils";
 
-interface LabelProps {
-  label: string;
+interface LabelProps extends DefaultProps {
   color?: Color;
-  mt?: number;
-  ml?: number;
-  mr?: number;
-  mb?: number;
   size?: Size;
   fw?: string;
-}
-
-interface LabelStyleProps {
-  color: string;
-  fontSize: string;
-  mt?: string;
-  ml?: string;
-  mr?: string;
-  mb?: string;
-  fw?: string;
+  fs?: "normal" | "italic";
 }
 
 export const Text = (props: LabelProps) => {
-  let size = props.size ? props.size : "sm";
-
-  let styleProps: LabelStyleProps = {
-    color: props.color ? colorValue(props.color) : theme.colors.black,
-    mt: `${props.mt ?? 0}px`,
-    mr: `${props.mr ?? 0}px`,
-    mb: `${props.mb ?? 0}px`,
-    ml: `${props.ml ?? 0}px`,
-    fontSize: size === "sm" ? "0.8rem" : size === "md" ? "0.9rem" : size === "lg" ? "1.1rem" : size === "xl" ? "1.3rem" : size,
-    fw: props.fw ? props.fw : "normal",
+  let sz = props.size ?? "sm";
+  let fontSize: Record<Size, any> = {
+    xs: { value: 0.8 },
+    sm: { value: 1.1 },
+    md: { value: 1.3 },
+    lg: { value: 1.5 },
+    xl: { value: 1.7 },
   };
 
-  return <StyledText $styleProps={styleProps}>{props.label}</StyledText>;
+  let color = themeColors[props.color as keyof typeof themeColors]?.value ?? props.color ?? theme.colors.black;
+  let size = fontSize[sz as keyof typeof fontSize]?.value ?? props.size;
+  let fw = props.fw ? props.fw : "normal";
+  let fs = props.fs ? props.fs : "normal";
+
+  return (
+    <Box w={props.w} m={props.m} mt={props.mt} mr={props.mr} mb={props.mb} ml={props.ml}>
+      <StyledText $size={size} $color={color} $fw={fw} $fs={fs}>
+        {props.children}
+      </StyledText>
+    </Box>
+  );
 };
 
-const StyledText = styled.div<{ $styleProps: LabelStyleProps }>`
-  font-size: ${(props) => props.$styleProps.fontSize};
-  margin-top: ${(props) => props.$styleProps.mt};
-  margin-left: ${(props) => props.$styleProps.ml};
-  margin-right: ${(props) => props.$styleProps.mr};
-  margin-bottom: ${(props) => props.$styleProps.mb};
-  color: ${(props) => props.$styleProps.color};
-  font-weight: ${(props) => props.$styleProps.fw};
+const StyledText = styled.div<{ $fs: string; $size: string; $color: string; $fw: string }>`
+  font-size: ${(props) => `${props.$size}rem`};
+  font-style: ${(props) => props.$fs};
+  color: ${(props) => props.$color};
+  font-weight: ${(props) => props.$fw};
   font-family: ${theme.font.defaultFamily};
 `;

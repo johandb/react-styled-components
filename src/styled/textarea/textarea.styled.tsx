@@ -18,7 +18,7 @@ interface InputProps {
 export const TextArea = (props: InputProps) => {
   return (
     <StyledTextAreaContainer>
-      {props.label && <Text label={props.label} size={props.size} />}
+      {props.label && <Text size={props.size}>{props.label}</Text>}
       <StyledTextArea
         value={props.value}
         disabled={props.disabled ?? false}

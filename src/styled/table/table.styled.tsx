@@ -1,6 +1,10 @@
 import { createContext, useContext } from "react";
 import styled from "styled-components";
+import { Box } from "../box/box";
+import { theme } from "../themes/themes";
 import type { Color } from "../types/color";
+import type { DefaultProps } from "../types/default.props";
+import { themeColors } from "../utils/styled.utils";
 
 interface Column {
   id: string;
@@ -14,14 +18,12 @@ export interface ColumnHeader {
   columns: Column[];
 }
 
-interface TableProps<T> {
+interface TableProps<T> extends DefaultProps {
   data: T[];
   header?: ColumnHeader;
-  // children: React.ReactNode;
   withColumnBorder?: boolean;
   withBorder?: boolean;
   striped?: boolean;
-  m?: number;
   handleRowClick?: (index: number) => void;
 }
 
@@ -38,34 +40,37 @@ const useTableContext = () => {
 export const Table = (props: TableProps<any>) => {
   return (
     <TableContext.Provider value={props}>
-      <TableContainer>
-        <StyledTable $margin={props.m ?? 5} $withBorder={props.withBorder} cellSpacing="0" cellPadding="0">
+      <Box w={props.w} m={props.m} mt={props.mt} mr={props.mr} mb={props.mb} ml={props.ml}>
+        <StyledTable $w={props.w ? props.w : 100} $withBorder={props.withBorder} cellSpacing="0" cellPadding="0">
           {props.header && <TableHeader />}
           <TableBody />
         </StyledTable>
-      </TableContainer>
+      </Box>
     </TableContext.Provider>
   );
 };
 
-const TableContainer = styled.div`
-  display: block;
-  padding: 0;
-  margin: 0;
-`;
+// const TableContainer = styled.div`
+//   display: block;
+//   padding: 0;
+//   margin: 0;
+// `;
 
-const StyledTable = styled.table<{ $margin: number; $withBorder?: boolean; $withColumnBorder?: boolean }>`
+const StyledTable = styled.table<{ $withBorder?: boolean; $withColumnBorder?: boolean; $w: number }>`
   text-align: left;
-  margin: ${(props) => `${props.$margin}px`};
   padding: 0px;
   ${(props) => (props.$withBorder ? `border: 1px solid #efefef;` : "")};
+  width: ${(props) => `${props.$w}%`};
 `;
 
 const TableHeader = () => {
   const ctx = useTableContext();
 
+  let bg = themeColors[ctx.header?.bg as keyof typeof themeColors]?.value ?? ctx.header?.bg ?? theme.colors.gray;
+  let fg = themeColors[ctx.header?.color as keyof typeof themeColors]?.value ?? ctx.header?.color ?? "white";
+
   return (
-    <StyledTableHeader $bg={ctx.header?.bg} $color={ctx.header?.color} $withColumnBorder={ctx.withColumnBorder}>
+    <StyledTableHeader $bg={bg} $color={fg} $withColumnBorder={ctx.withColumnBorder}>
       <tr>
         {ctx.header?.columns.map((h) => (
           <th key={h.id}>{h.title}</th>
@@ -77,8 +82,8 @@ const TableHeader = () => {
 
 const StyledTableHeader = styled.thead<{ $bg?: string; $color?: string; $withColumnBorder?: boolean }>`
   tr {
-    background-color: ${(props) => props.$bg ?? "gray"};
-    color: ${(props) => props.$color ?? "white"};
+    background-color: ${(props) => props.$bg};
+    color: ${(props) => props.$color};
   }
 
   th {
@@ -96,9 +101,6 @@ const StyledTableHeader = styled.thead<{ $bg?: string; $color?: string; $withCol
 
 const TableBody = () => {
   const ctx = useTableContext();
-  const hasHeader = ctx.header;
-
-  console.log("hasHeader:", hasHeader);
 
   return (
     <StyledTableBody $withColumnBorder={ctx.withColumnBorder}>

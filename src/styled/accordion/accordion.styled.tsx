@@ -1,19 +1,14 @@
 import { useLayoutEffect, useState } from "react";
 import styled from "styled-components";
-import { AccordionContext, useAccordionContext } from "../../hooks/accordion.context";
+import { AccordionContext, useAccordionContext } from "../hooks/accordion.context";
 import { theme } from "../themes/themes";
 import type { Color } from "../types/color";
-import { colorValue } from "../utils/styled.utils";
+import type { DefaultProps } from "../types/default.props";
+import { themeColors } from "../utils/styled.utils";
 
-interface AccordionProps {
+interface AccordionProps extends DefaultProps {
   multiple?: boolean;
   value?: string;
-  w?: number;
-  m?: number;
-  mt?: number;
-  mr?: number;
-  mb?: number;
-  ml?: number;
   bg?: Color;
   fg?: Color;
   children: React.ReactNode;
@@ -31,22 +26,21 @@ export const Accordion = (props: AccordionProps) => {
     margin = `${margin} ${props.mb ? `${props.mb}px` : `0px`}`;
     margin = `${margin} ${props.ml ? `${props.ml}px` : `0px`}`;
   }
-
   return (
     <AccordionContext.Provider
       value={{
         active: active,
         multiple: props.multiple ?? false,
         setActive,
-        bg: props.bg ? colorValue(props.bg) : theme.colors.primary,
-        fg: props.fg ? colorValue(props.fg) : theme.colors.white,
+        bg: themeColors[props.bg as keyof typeof themeColors]?.value ?? props.bg ?? theme.colors.primary,
+        fg: themeColors[props.fg as keyof typeof themeColors]?.value ?? props.fg ?? theme.colors.white,
       }}
     >
       <StyledAccordion
-        $w={props.w ? `${props.w}px` : "100vw"}
+        $w={props.w ? `${props.w}px` : "100%"}
         $m={margin}
-        $bg={props.bg ? colorValue(props.bg) : theme.colors.primary}
-        $c={props.fg ? colorValue(props.fg) : theme.colors.white}
+        $bg={themeColors[props.bg as keyof typeof themeColors]?.value ?? props.bg ?? theme.colors.primary}
+        $c={themeColors[props.fg as keyof typeof themeColors]?.value ?? props.fg ?? theme.colors.white}
       >
         {props.children}
       </StyledAccordion>
@@ -54,13 +48,12 @@ export const Accordion = (props: AccordionProps) => {
   );
 };
 
-const StyledAccordion = styled.div<{ $w?: string; $m: string; $bg: string; $c: string }>`
+const StyledAccordion = styled.div<{ $w: string; $m: string; $bg: string; $c: string }>`
   box-sizing: border-box;
   width: ${(props) => props.$w};
   border-radius: 10px;
   border: 1px solid #f1f1f1;
   margin: ${(props) => props.$m};
-  overflow: hidden;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
   background-color: ${(props) => props.$bg};
   color: ${(props) => props.$c};
@@ -119,7 +112,7 @@ const StyledAccordionTitle = styled.div<{ $bg: string; $fg: string }>`
   justify-content: space-between;
   font-size: 1.2rem;
   font-family: ${theme.font.defaultFamily};
-  font-weight: 400;
+  font-weight: normal;
   padding: 5px 10px 5px 10px;
   line-height: 1.6;
   transition: background-color 0.3s ease;
@@ -141,7 +134,7 @@ export const AccordionPanel = (props: AccordionPanelProps) => {
 const StyledAccordionPanel = styled.div`
   padding: 10px;
   display: block;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.4;
   color: black;
   background-color: white;

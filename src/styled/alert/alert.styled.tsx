@@ -1,38 +1,39 @@
 import styled from "styled-components";
+import { Box } from "../box/box";
 import { Text } from "../text/styled.text";
 import { theme } from "../themes/themes";
 import type { Color } from "../types/color";
-import { colorValue } from "../utils/styled.utils";
+import type { DefaultProps } from "../types/default.props";
+import { themeColors } from "../utils/styled.utils";
 
-interface AlertProps {
+interface AlertProps extends DefaultProps {
   title?: string;
-  m?: number;
-  children: React.ReactNode;
   icon?: React.ReactNode;
   color?: Color;
 }
 
 export const Alert = (props: AlertProps) => {
-  let color = colorValue(props.color ?? theme.colors.blue);
+  let bg = themeColors[props.color as keyof typeof themeColors]?.value ?? theme.colors.black;
 
   return (
-    <StyledAlertWrapper color={color} $margin={props.m ?? 0}>
-      <StyledAlertBody>
-        {props.title && <Text color={theme.colors.white} label={props.title} mb={15} fw="bold" />}
-        <StyledAlert>{props.children}</StyledAlert>
-      </StyledAlertBody>
-    </StyledAlertWrapper>
+    <Box w={props.w} m={props.m} mt={props.mt} mr={props.mr} mb={props.mb} ml={props.ml}>
+      <StyledAlertWrapper $bg={bg}>
+        <StyledAlertBody>
+          {props.title && <Text color={theme.colors.white} label={props.title} mb={15} fw="bold" />}
+          <StyledAlert>{props.children}</StyledAlert>
+        </StyledAlertBody>
+      </StyledAlertWrapper>
+    </Box>
   );
 };
 
-const StyledAlertWrapper = styled.div<{ color: string; $margin: number }>`
-  display: block;
-  background-color: ${(props) => props.color};
-  margin: ${(props) => `${props.$margin}px`};
+const StyledAlertWrapper = styled.div<{ $bg: string }>`
+  /* display: block; */
+  background-color: ${(props) => props.$bg};
   border: none;
-  padding: 10px 20px;
+  padding: 5px 10px;
   border-radius: 10px;
-  width: auto;
+  /* width: auto; */
 `;
 
 const StyledAlertBody = styled.div<{ color?: string }>`

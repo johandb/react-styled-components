@@ -2,9 +2,14 @@ import { createGlobalStyle } from "styled-components";
 import { theme } from "./themes/themes";
 
 const GlobalStyle = createGlobalStyle`
-  body, h1,h2,h3,h4,h5,p,div {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  * {
     margin: 0; 
     padding: 0; 
+  }
+  body {  
     background-color: inherit;
     font-family: ${theme.font.defaultFamily};
   }

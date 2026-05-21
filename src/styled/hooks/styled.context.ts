@@ -1,8 +1,8 @@
 import { createContext, useContext } from "react";
 
-import type { Align } from "../styled/types/align";
-import type { Color } from "../styled/types/color";
-import type { Size } from "../styled/types/size";
+import type { Align } from "../types/align";
+import type { Color } from "../types/color";
+import type { Size } from "../types/size";
 
 type StyledType = {
   color?: Color;

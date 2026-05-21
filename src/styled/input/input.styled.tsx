@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import useInput from "../../hooks/use-input";
+import useInput from "../hooks/use-input";
 import { Text } from "../text/styled.text";
 import { theme } from "../themes/themes";
 import type { Size } from "../types/size";
@@ -25,11 +25,19 @@ const Input = (props: StyledInputProps) => {
   return (
     <StyledTextInputContainer>
       <StyledInputWrapper>
-        {props.label && <Text label={props.label} size={props.size} />}
-        {props.required && <Text label="*" color="red" size={props.size} />}
+        {props.label && (
+          <Text mb={3} size={props.size}>
+            {props.label}
+          </Text>
+        )}
+        {props.required && (
+          <Text color="red" size={props.size}>
+            *
+          </Text>
+        )}
       </StyledInputWrapper>
       <StyledInputWrapper>
-        <StyledInputIcon $p={props.leftIcon ? input.pt : 5}>{props.leftIcon}</StyledInputIcon>
+        {props.leftIcon && <StyledInputIcon $p={props.leftIcon ? input.pt : 0}>{props.leftIcon}</StyledInputIcon>}
         <StyledInput
           $type={props.type}
           value={props.value}
