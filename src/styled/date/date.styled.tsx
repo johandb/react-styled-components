@@ -232,7 +232,7 @@ export const DatePicker = (props: DateTimeProps) => {
 
   return (
     <Stack>
-      {props.label && <Text label={props.label} />}
+      {props.label && <Text>{props.label}</Text>}
       <StyledInputDate
         readOnly
         type="text"

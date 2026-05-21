@@ -19,7 +19,11 @@ export const Alert = (props: AlertProps) => {
     <Box w={props.w} m={props.m} mt={props.mt} mr={props.mr} mb={props.mb} ml={props.ml}>
       <StyledAlertWrapper $bg={bg}>
         <StyledAlertBody>
-          {props.title && <Text color={theme.colors.white} label={props.title} mb={15} fw="bold" />}
+          {props.title && (
+            <Text color={theme.colors.white} mb={15} fw="bold">
+              {props.title}
+            </Text>
+          )}
           <StyledAlert>{props.children}</StyledAlert>
         </StyledAlertBody>
       </StyledAlertWrapper>

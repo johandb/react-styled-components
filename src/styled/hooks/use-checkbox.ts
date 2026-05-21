@@ -7,13 +7,8 @@ const useCheckbox = (defaultSize: Size = "sm") => {
   let checkbox = StyledConfig.checkbox;
 
   const fs = checkbox[size as keyof typeof checkbox].fs;
-  const h = checkbox[size as keyof typeof checkbox].h;
-  const w = checkbox[size as keyof typeof checkbox].w;
-  const mh = checkbox[size as keyof typeof checkbox].mh;
-  const mw = checkbox[size as keyof typeof checkbox].mw;
-  const m = checkbox[size as keyof typeof checkbox].m;
 
-  return { fs, h, w, mh, mw, m };
+  return { fs };
 };
 
 export default useCheckbox;
