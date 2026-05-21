@@ -83,7 +83,7 @@ const StyledInputDate = styled.input`
   outline: none;
   border-radius: 5px;
   padding: 5px;
-  width: auto;
+  width: 150px;
 `;
 
 interface DateTimeProps {
@@ -221,9 +221,9 @@ export const DatePicker = (props: DateTimeProps) => {
     return `${year}-${month}-${day}`;
   };
 
-  const pickDate = (day: number) => {
-    let newSelectedDate = new Date(selectedDate);
-    newSelectedDate.setDate(day);
+  const pickDate = (col: { day: number; month: number; year: number }) => {
+    //console.log("col:", col);
+    let newSelectedDate = new Date(col.year, col.month - 1, col.day);
     setSelectedDate(newSelectedDate);
     setShowDatePicker(false);
     props.onChange(newSelectedDate);
@@ -274,7 +274,7 @@ export const DatePicker = (props: DateTimeProps) => {
                     key={x}
                     $isSelected={isSelectedDate(col)}
                     $isCurrent={isCurrentDate(col)}
-                    onClick={() => pickDate(col.day)}
+                    onClick={() => pickDate(col)}
                   >
                     {col.day}
                   </StyledDateDay>

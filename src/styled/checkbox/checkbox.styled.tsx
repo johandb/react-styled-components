@@ -97,7 +97,7 @@ export const Checkbox = (props: CheckboxProps) => {
       <StyledCheckbox disabled={disabled} onClick={() => (disabled ? {} : handleCheckboxClick(props.value ?? ""))}>
         <svg width={`${w}px`} height={`${w}px`} viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <g id="checkbox">
-            <g fill="none" stroke="#8a8989" strokeLinecap="round" strokeLinejoin="round">
+            <g fill="#ffffff" stroke="#8a8989" strokeLinecap="round" strokeLinejoin="round">
               <path
                 d="m2.5.5h10c1.1045695 0 2 .8954305 2 2v10c0 1.1045695-.8954305 2-2 2h-10c-1.1045695 0-2-.8954305-2-2v-10c0-1.1045695.8954305-2 2-2z"
                 strokeWidth="0.25"

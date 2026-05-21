@@ -16,6 +16,8 @@ import { Text } from "./styled/text/styled.text";
 import { TextArea } from "./styled/textarea/textarea.styled";
 
 import "./App.css";
+import { Card } from "./styled/card/card.styled";
+import { DatePicker } from "./styled/date/date.styled";
 
 const App = () => {
   const [country, setCountry] = useState("us");
@@ -284,6 +286,19 @@ const App = () => {
     );
   };
 
+  const showCard = () => {
+    return (
+      <>
+        <Card color="blue" m={10}>
+          <DatePicker onChange={() => {}} />
+          <Text color="white" size="xl">
+            Test
+          </Text>
+        </Card>
+      </>
+    );
+  };
+
   return (
     <>
       <h2>Demo</h2>
@@ -294,7 +309,7 @@ const App = () => {
       {/* {showCheckboxes()} */}
       {/* {showRadios()} */}
       {/* {showInputs()} */}
-      {showSwitches()}
+      {/* {showSwitches()} */}
       {/* {showAccordion()} */}
       {/* {showAlerts()} */}
       {/* {showButtons()} */}
@@ -303,6 +318,7 @@ const App = () => {
       {/* {showSelect()} */}
       {/* </Stack> */}
       {/* </Container> */}
+      {showCard()}
     </>
   );
 };
