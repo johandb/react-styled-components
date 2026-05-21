@@ -97,19 +97,19 @@ const App = () => {
         </Group>
         <Group>
           <Radio size="xs" checked={radioChecked} onChange={(e) => setRadioChecked(!e)} value="angular">
-            XS:ok
+            Xs:ok
           </Radio>
-          <Radio size="sm" checked={radioChecked} onChange={(e) => setRadioChecked(!e)} value="angular">
-            SM:ok
+          <Radio color="indigo" size="sm" checked={radioChecked} onChange={(e) => setRadioChecked(!e)} value="angular">
+            Sm:ok
           </Radio>
           <Radio size="md" disabled checked={radioDisabled} onChange={(e) => setRadioDisabled(!e)} value="angular">
-            MD:ok
+            Md:ok
           </Radio>
           <Radio size="lg" checked={radioChecked} onChange={(e) => setRadioChecked(!e)} value="angular">
-            LG:ok
+            Lg:ok
           </Radio>
           <Radio size="xl" checked={radioChecked} onChange={(e) => setRadioChecked(!e)} value="angular">
-            XL:ok
+            Xl:ok
           </Radio>
         </Group>
         <br />
@@ -278,38 +278,15 @@ const App = () => {
     );
   };
 
-  let ok = true;
-  let c = "#e01616";
-
-  // xs = 26
-  // sm = 34
-  // md = 42
-  // lg = 50
-  // xl = 58
-
   return (
     <>
       <h2>Demo</h2>
-      <Checkbox color="orange" size="xl" label="SM : I agree" checked={checked} onChange={setChecked} />
 
-      <div>
-        <svg width="42px" height="42px" viewBox="-2.1 -2.1 25.20 25.20" xmlns="http://www.w3.org/2000/svg">
-          <g id="checkbox">
-            <g fill="none" stroke="#8a8989" strokeLinecap="round" strokeLinejoin="round">
-              <path
-                d="m2.5.5h10c1.1045695 0 2 .8954305 2 2v10c0 1.1045695-.8954305 2-2 2h-10c-1.1045695 0-2-.8954305-2-2v-10c0-1.1045695.8954305-2 2-2z"
-                strokeWidth="0.25"
-              />
-              {ok && <path d="m2.5 7.7 4 4 5-8" stroke={c} strokeWidth="2.0" />}
-            </g>
-          </g>
-        </svg>
-      </div>
       {/* <Container> */}
       {/* <Stack> */}
       {/* <h2>Demo Controls</h2> */}
-      {/* {showCheckboxes()} */}
-      {/* {showRadios()} */}
+      {showCheckboxes()}
+      {showRadios()}
       {/* {showInputs()} */}
       {/* {showSwitches()} */}
       {/* {showAccordion()} */}

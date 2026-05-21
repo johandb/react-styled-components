@@ -53,6 +53,9 @@ export const Radio = (props: RadioProps) => {
   const contextChecked = ctx?.value === props.value;
   let checked = ctx ? contextChecked : (props.checked ?? false);
 
+  let index = ["xs", "sm", "md", "lg", "xl"].indexOf(size);
+  let w = index !== -1 ? 18 + index * 6 : size;
+
   let color = themeColors[props.color as keyof typeof themeColors]?.value ?? theme.colors.defaultRadioButton;
   color = disabled ? theme.colors.defaultDisabledColor : color;
 
@@ -74,17 +77,29 @@ export const Radio = (props: RadioProps) => {
 
   return (
     <StyledRadioContainer $position={props.position ?? "left"}>
-      <StyledRadio
-        disabled={disabled}
-        $h={radio.h}
-        $w={radio.w}
-        $b={radio.b}
-        checked={checked}
-        color={color}
-        $bg={bg}
-        onClick={() => (disabled ? {} : handleRadioClick())}
-      />
-      <StyledRadioLabel $fs={radio.fs} $p={radio.p} disabled={props.disabled ?? false}>
+      <StyledRadio disabled={disabled} onClick={() => (disabled ? {} : handleRadioClick())}>
+        <svg
+          width={`${w}px`}
+          height={`${w}px`}
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          stroke={color}
+          strokeWidth="0.05"
+        >
+          <g id="radio">
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M12 19.5C16.1421 19.5 19.5 16.1421 19.5 12C19.5 7.85786 16.1421 4.5 12 4.5C7.85786 4.5 4.5 7.85786 4.5 12C4.5 16.1421 7.85786 19.5 12 19.5ZM12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
+              fill={color}
+              transform="translate(-1 -1)"
+            />
+            {checked && <circle cx="11" cy="11" r="4.0" fill={color}></circle>}
+          </g>
+        </svg>
+      </StyledRadio>
+      <StyledRadioLabel $fs={radio.fs} disabled={disabled}>
         {props.children}
       </StyledRadioLabel>
     </StyledRadioContainer>
@@ -93,36 +108,20 @@ export const Radio = (props: RadioProps) => {
 
 const StyledRadioContainer = styled.div<{ $position: string }>`
   display: flex;
+  gap: 3px;
   justify-content: flex-start;
   flex-direction: ${(props) => (props.$position == "right" ? "row-reverse" : "row")};
 `;
 
-const StyledRadioLabel = styled.div<{ $fs: string; $p: string; disabled: boolean }>`
+const StyledRadioLabel = styled.div<{ $fs: string; disabled: boolean }>`
   font-size: ${(props) => props.$fs};
-  padding: ${(props) => props.$p};
   color: ${(props) => (props.disabled ? theme.colors.defaultDisabledColor : "inherit")};
 `;
 
-const StyledRadio = styled.div<{
-  color: string;
-  $bg: string;
-  checked: boolean;
-  $b: string;
-  $h: string;
-  $w: string;
-  disabled: boolean;
-}>`
-  background: ${(props) => props.$bg};
-  border-radius: 50%;
-  border: ${(props) => props.$b} solid white;
-  height: ${(props) => props.$h};
-  width: ${(props) => props.$w};
-  position: relative;
-  box-shadow: ${(props) => `0 0 0 1px ${props.checked ? props.color : theme.colors.defaultBorderColor}`};
+const StyledRadio = styled.div<{ disabled: boolean }>`
   &:hover {
     cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   }
-  margin: 10px 5px 0px 5px;
 `;
 
 Radio.Group = RadioGroup;

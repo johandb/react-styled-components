@@ -48,57 +48,40 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
   );
 };
 
-const StyledCheckbox = styled.div<{ width: string; height: string; $margin: string }>`
-  margin: ${(props) => props.$margin};
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-  border: 1px solid ${() => theme.colors.defaultBorderColor};
-  border-radius: 3px;
-`;
-
-const StyledCheckboxIcon = styled.div<{
-  checked: boolean;
-  color: string;
-  height: string;
-  width: string;
-  $margin: string;
-  disabled: boolean;
-}>`
-  opacity: ${(props) => (props.checked ? 1 : 0)};
-  height: ${(props) => props.height};
-  width: ${(props) => props.width};
-  border-bottom: 3px solid ${(props) => (props.disabled ? theme.colors.defaultDisabledColor : props.color)};
-  border-right: 3px solid ${(props) => (props.disabled ? theme.colors.defaultDisabledColor : props.color)};
-  transform: rotate(35deg);
-  margin: ${(props) => props.$margin};
+const StyledCheckbox = styled.div<{ disabled: boolean }>`
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 `;
 
 const StyledCheckboxLabel = styled.div<{
-  fontSize: string;
+  $fs: string;
   disabled: boolean;
 }>`
   color: ${(props) => (props.disabled ? theme.colors.defaultDisabledColor : "inherit")};
-  font-size: ${(props) => props.fontSize};
+  font-size: ${(props) => props.$fs};
 `;
 
-const StyledCheckboxContainer = styled.div<{ disabled: boolean }>`
+const StyledCheckboxContainer = styled.div`
   display: flex;
-  gap: 7px;
+  gap: 5px;
   align-items: center;
-  margin: 0px 5px 5px 0px;
+  margin: 0px;
 `;
 
 export const Checkbox = (props: CheckboxProps) => {
   let ctx = use(CheckboxContext);
-  let size = props.size ?? "xs";
+  let size = props.size ?? "sm";
 
   let cb = useCheckbox(size);
 
-  //console.log("ctx value:", ctx?.values);
+  //console.log("cb:", cb);
+  let disabled = props.disabled ?? false;
   let checked = ctx?.values.includes(props.value ?? "") ?? props.checked;
   let color = themeColors[props.color as keyof typeof themeColors]?.value ?? props.color ?? theme.colors.defaultCheckmark;
+  color = disabled ? theme.colors.defaultDisabledColor : color;
+  let index = ["xs", "sm", "md", "lg", "xl"].indexOf(size);
+  let w = index !== -1 ? 20 + index * 7 : size;
 
+  //console.log("fs :", cb.fs);
   const onChange = (value: boolean) => {
     props.onChange?.(value);
   };
@@ -110,37 +93,25 @@ export const Checkbox = (props: CheckboxProps) => {
   };
 
   return (
-    <StyledCheckboxContainer disabled={props.disabled ?? false}>
-      <div>
-        <svg width="42px" height="42px" viewBox="-2.1 -2.1 25.20 25.20" xmlns="http://www.w3.org/2000/svg">
+    <StyledCheckboxContainer>
+      <StyledCheckbox disabled={disabled} onClick={() => (disabled ? {} : handleCheckboxClick(props.value ?? ""))}>
+        <svg width={`${w}px`} height={`${w}px`} viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <g id="checkbox">
             <g fill="none" stroke="#8a8989" strokeLinecap="round" strokeLinejoin="round">
               <path
                 d="m2.5.5h10c1.1045695 0 2 .8954305 2 2v10c0 1.1045695-.8954305 2-2 2h-10c-1.1045695 0-2-.8954305-2-2v-10c0-1.1045695.8954305-2 2-2z"
                 strokeWidth="0.25"
+                transform="translate(3 4)"
               />
-              {checked && <path d="m2.5 7.7 4 4 5-8" stroke={color} strokeWidth="2.0" />}
+              {checked && <path d="m5.7 11.7 4 4 5-8" stroke={color} strokeWidth="2.0" />}
             </g>
           </g>
         </svg>
-      </div>
-      <StyledCheckboxLabel disabled={props.disabled ?? false} fontSize={cb.fs}>
+      </StyledCheckbox>
+      <StyledCheckboxLabel disabled={disabled} $fs={cb.fs}>
         {props.label}
       </StyledCheckboxLabel>
     </StyledCheckboxContainer>
-    // <StyledCheckboxContainer disabled={props.disabled ?? false}>
-    //   <StyledCheckbox width={cb.w} height={cb.h} $margin={cb.m}>
-    //     <StyledCheckboxIcon
-    //       onClick={() => (props.disabled ? {} : handleCheckboxClick(props.value ?? ""))}
-    //       disabled={props.disabled ?? false}
-    //       checked={checked ?? false}
-    //       $margin={cb.m}
-    //       height={cb.mh}
-    //       width={cb.mw}
-    //       color={color}
-    //     />
-    //   </StyledCheckbox>
-    // </StyledCheckboxContainer>
   );
 };
 
