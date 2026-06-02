@@ -61,6 +61,7 @@ const StyledButton = styled.button<{
   padding: ${(props) => props.$styleProps.padding};
   text-align: center;
   text-decoration: none;
+  outline: none;
   border-radius: ${(props) => props.$styleProps.radius}px;
   opacity: 0.9;
   display: inline-block;
