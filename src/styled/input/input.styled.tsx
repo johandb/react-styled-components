@@ -12,6 +12,7 @@ interface InputProps {
   disabled?: boolean;
   required?: boolean;
   size?: Size;
+  width?: number;
   leftIcon?: React.ReactNode;
 }
 
@@ -40,6 +41,7 @@ const Input = (props: StyledInputProps) => {
         {props.leftIcon && <StyledInputIcon $p={props.leftIcon ? input.pt : 0}>{props.leftIcon}</StyledInputIcon>}
         <StyledInput
           $type={props.type}
+          $width={props.width}
           value={props.value}
           $pr={props.leftIcon ? input.pr : 5}
           $fs={input.fs}
@@ -69,13 +71,15 @@ const StyledInputIcon = styled.span<{ $p: number }>`
   text-align: left;
 `;
 
-const StyledInput = styled.input.attrs<{ $type: string; placeholder: string; $pr: number; $fs: number }>((props) => ({
-  type: props.$type || "text",
-}))`
+const StyledInput = styled.input.attrs<{ $type: string; placeholder: string; $pr: number; $fs: number; $width: number }>(
+  (props) => ({
+    type: props.$type || "text",
+  }),
+)`
   border: 1px solid ${theme.colors.defaultBorderColor};
   border-radius: 5px;
   padding: ${(props) => `5px 5px 5px ${props.$pr}px`};
-  width: auto;
+  width: ${(props) => (props.$width ? `${props.$width}px` : "100%")};
   font-size: ${(props) => `${props.$fs}rem`};
   font-weight: normal;
   font-family: inherit;

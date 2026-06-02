@@ -27,6 +27,7 @@ interface ButtonStyleProps {
 
 export const Button = (props: ButtonProps) => {
   let size = props.size ? props.size : "sm";
+
   let color = themeColors[props.color as keyof typeof themeColors]?.value ?? theme.colors.primary;
 
   let button = useButton(size);

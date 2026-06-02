@@ -15,9 +15,12 @@ import { Table, type ColumnHeader } from "./styled/table/table.styled";
 import { Text } from "./styled/text/styled.text";
 import { TextArea } from "./styled/textarea/textarea.styled";
 
-import "./App.css";
 import { Card } from "./styled/card/card.styled";
 import { DatePicker } from "./styled/date/date.styled";
+import { Modal } from "./styled/dialogs/modal.styled";
+import { useDisclosure } from "./styled/hooks/use-disclosure";
+
+import "./App.css";
 
 const App = () => {
   const [country, setCountry] = useState("us");
@@ -28,7 +31,7 @@ const App = () => {
   const [radioValue, setRadioValue] = useState("react");
   const [inputValue, setInputValue] = useState("");
   const [age, setAge] = useState("0");
-  const [toggle, setToggle] = useState(false);
+  const [opened, { open, close }] = useDisclosure(false);
 
   const header: ColumnHeader = {
     bg: "black",
@@ -46,7 +49,6 @@ const App = () => {
 
   const handleToggle = (size: string, value: boolean) => {
     console.log("toggle:", size, ", value:", value);
-    setToggle(value);
   };
 
   const handleRowCick = (index: number) => {
@@ -136,6 +138,7 @@ const App = () => {
           <TextInput leftIcon={<FaUser />} size="sm" value={inputValue} onChange={setInputValue} />
           <TextInput leftIcon={<FaUser />} size="md" value={inputValue} onChange={setInputValue} />
           <TextInput leftIcon={<FaLock />} size="lg" value={inputValue} onChange={setInputValue} />
+          <TextInput size="lg" value={inputValue} onChange={setInputValue} />
           <TextInput leftIcon={<FaUser size={24} />} label="Your username" size="xl" value={inputValue} onChange={setInputValue} />
           <PasswordInput leftIcon={<FaUser />} label="Your password" size="sm" value={inputValue} onChange={setInputValue} />
           <NumberInput label="Enter your age" size="sm" value={age} onChange={setAge} />
@@ -273,6 +276,7 @@ const App = () => {
   const showTable = () => {
     return (
       <>
+        <h4>Table</h4>
         <Table m={10} handleRowClick={(index) => handleRowCick(index)} withBorder withColumnBorder data={data} header={header} />
       </>
     );
@@ -281,6 +285,7 @@ const App = () => {
   const showSelect = () => {
     return (
       <>
+        <h4>Select</h4>
         <Select label="Select a country" value={country} m={10} data={values} onChange={(value) => setCountry(value)} />
       </>
     );
@@ -289,12 +294,40 @@ const App = () => {
   const showCard = () => {
     return (
       <>
+        <h4>Card</h4>
         <Card color="blue" m={10}>
           <DatePicker onChange={() => {}} />
           <Text color="white" size="xl">
             Test
           </Text>
         </Card>
+      </>
+    );
+  };
+
+  const showDialog = () => {
+    return (
+      <>
+        <h4>Dialog</h4>
+        <Button size="sm" mt={20} onClick={open}>
+          Open Dialog
+        </Button>
+        {opened && (
+          <Modal onClose={close} opened={opened} modal title="This is a modal dialog for een lange header">
+            <Stack mt={10}>
+              <TextInput label="Your name" value={inputValue} onChange={setInputValue} />
+              <TextInput label="Your address" value={inputValue} onChange={setInputValue} />
+              <Group mt={20}>
+                <Button size="md" onClick={close}>
+                  Ok
+                </Button>
+                <Button size="md" color="darkgray" onClick={close}>
+                  Cancel
+                </Button>
+              </Group>
+            </Stack>
+          </Modal>
+        )}
       </>
     );
   };
@@ -318,7 +351,8 @@ const App = () => {
       {/* {showSelect()} */}
       {/* </Stack> */}
       {/* </Container> */}
-      {showCard()}
+      {/* {showCard()} */}
+      {showDialog()}
     </>
   );
 };
