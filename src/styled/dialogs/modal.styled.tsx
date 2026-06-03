@@ -81,7 +81,7 @@ const StyledModal = styled.dialog<{ $modal?: boolean }>`
 `;
 
 const StyledModalBody = styled.div`
-  padding: 10px;
+  padding: 0px;
 `;
 
 const StyledModalContainer = styled.div`

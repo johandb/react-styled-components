@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaPeopleArrows, FaUser } from "react-icons/fa";
+import { FaPeopleArrows, FaSave, FaTimes, FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa6";
 import { Accordion } from "./styled/accordion/accordion.styled";
 import { Alert } from "./styled/alert/alert.styled";
@@ -21,6 +21,7 @@ import { Modal } from "./styled/dialogs/modal.styled";
 import { useDisclosure } from "./styled/hooks/use-disclosure";
 
 import "./App.css";
+import { TestControl } from "./styled/test/test.styled";
 
 const App = () => {
   const [country, setCountry] = useState("us");
@@ -219,11 +220,17 @@ const App = () => {
     return (
       <div>
         <h4>Buttons</h4>
-        <Button ml={10} mt={10} size="xs" onClick={handleButtonClick}>
+        <Button ml={10} mt={10} width={100} onClick={handleButtonClick}>
+          Custom
+        </Button>
+        <Button m={10} leftIcon={<FaSave size="10" color="white" />} size="xs" onClick={handleButtonClick}>
           Button XS
         </Button>
         <Button m={10} size="sm" onClick={handleButtonClick}>
           Button SM
+        </Button>
+        <Button m={10} width={200} leftIcon={<FaSave size="16" color="white" />} size="md" onClick={handleButtonClick}>
+          Button MD
         </Button>
         <Button m={10} variant="outline" color="indigo" size="md" onClick={handleButtonClick}>
           Button MD
@@ -318,10 +325,10 @@ const App = () => {
               <TextInput label="Your name" value={inputValue} onChange={setInputValue} />
               <TextInput label="Your address" value={inputValue} onChange={setInputValue} />
               <Group mt={20}>
-                <Button size="md" onClick={close}>
+                <Button leftIcon={<FaSave size="14" />} width={100} onClick={close}>
                   Ok
                 </Button>
-                <Button size="md" color="darkgray" onClick={close}>
+                <Button leftIcon={<FaTimes size="14" />} width={100} color="red" onClick={close}>
                   Cancel
                 </Button>
               </Group>
@@ -332,13 +339,44 @@ const App = () => {
     );
   };
 
+  const TestControls = () => {
+    return (
+      <>
+        <TestControl m={20} leftIcon={<FaSave size="12" color="white" />}>
+          <Text color="white" size="xs">
+            Save
+          </Text>
+        </TestControl>
+        <TestControl m={20} leftIcon={<FaSave size="14" color="white" />}>
+          <Text color="white" size="sm">
+            Save
+          </Text>
+        </TestControl>
+        <TestControl m={20} leftIcon={<FaSave size="16" color="white" />}>
+          <Text color="white" size="md">
+            Save
+          </Text>
+        </TestControl>
+        <TestControl m={20} leftIcon={<FaSave size="18" color="white" />}>
+          <Text color="white" size="lg">
+            Save
+          </Text>
+        </TestControl>
+        <TestControl m={20} leftIcon={<FaSave size="20" color="white" />}>
+          <Text color="white" size="xl">
+            Save
+          </Text>
+        </TestControl>
+      </>
+    );
+  };
+
   return (
     <>
-      <h2>Demo</h2>
+      <h2>Demo Controls</h2>
 
-      {/* <Container> */}
+      {/* <Container></Container> */}
       {/* <Stack> */}
-      {/* <h2>Demo Controls</h2> */}
       {/* {showCheckboxes()} */}
       {/* {showRadios()} */}
       {/* {showInputs()} */}
@@ -352,7 +390,8 @@ const App = () => {
       {/* </Stack> */}
       {/* </Container> */}
       {/* {showCard()} */}
-      {showDialog()}
+      {/* {showDialog()} */}
+      {TestControls()}
     </>
   );
 };

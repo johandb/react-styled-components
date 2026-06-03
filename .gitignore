@@ -28,3 +28,4 @@ src/components/info/infos/infos.tsx
 src/components/info/news/news.tsx
 src/components/info/varia/varia.tsx
 src/components/info/weektext/weektext.tsx
+src/styled/test/

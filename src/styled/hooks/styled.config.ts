@@ -97,26 +97,4 @@ export const StyledConfig = {
       fs: 1.4,
     },
   },
-  button: {
-    xs: {
-      p: "5px 10px",
-      fs: "0.7rem",
-    },
-    sm: {
-      p: "5px 10px",
-      fs: "0.8rem",
-    },
-    md: {
-      p: "5px 10px",
-      fs: "0.9rem",
-    },
-    lg: {
-      p: "5px 15px",
-      fs: "1.1rem",
-    },
-    xl: {
-      p: "5px 15px",
-      fs: "1.3rem",
-    },
-  },
 };

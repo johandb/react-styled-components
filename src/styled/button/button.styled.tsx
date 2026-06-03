@@ -1,6 +1,5 @@
-import styled from "styled-components";
+import styled, { StyleSheetManager } from "styled-components";
 import { Box } from "../box/box";
-import useButton from "../hooks/use-button";
 import { theme } from "../themes/themes";
 import type { Color } from "../types/color";
 import type { DefaultProps } from "../types/default.props";
@@ -14,65 +13,65 @@ interface ButtonProps extends DefaultProps {
   size?: Size;
   radius?: number;
   onClick: () => void;
-}
-
-interface ButtonStyleProps {
-  padding: string;
-  fontSize: string;
-  radius: number;
-  color: string;
-  variant: string;
-  font?: string;
+  leftIcon?: React.ReactNode;
+  width?: number;
 }
 
 export const Button = (props: ButtonProps) => {
-  let size = props.size ? props.size : "sm";
-
+  let size = props.size ?? "sm";
   let color = themeColors[props.color as keyof typeof themeColors]?.value ?? theme.colors.primary;
 
-  let button = useButton(size);
+  let index = ["xs", "sm", "md", "lg", "xl"].indexOf(size);
+  let fs = index * 0.12 + 0.65;
 
-  let styleProps: ButtonStyleProps = {
-    padding: button.p,
-    fontSize: button.fs,
-    radius: props.radius || 7,
-    color: color,
-    variant: props.variant ? props.variant : "filled",
-    font: theme.font.defaultFamily,
-  };
-
-  //console.log("variant :", variant, "  -- ", props.variant);
   return (
     <Box w={props.w} m={props.m} mt={props.mt} mr={props.mr} mb={props.mb} ml={props.ml}>
-      <StyledButton onClick={() => props.onClick()} $styleProps={styleProps}>
-        {props.children}
-      </StyledButton>
+      <StyleSheetManager shouldForwardProp={(prop) => prop !== "variant"}>
+        <StyledButtonWrapper
+          onClick={props.onClick}
+          radius={props.radius || 7}
+          variant={props.variant || "filled"}
+          color={color}
+          width={props.width}
+        >
+          {props.leftIcon && <StyledButtonIcon>{props.leftIcon}</StyledButtonIcon>}
+          <StyledButton fs={fs}>{props.children}</StyledButton>
+        </StyledButtonWrapper>
+      </StyleSheetManager>
     </Box>
   );
 };
 
-const StyledButton = styled.button<{
-  $styleProps: ButtonStyleProps;
-}>`
-  background-color: ${(props) => (props.$styleProps.variant === "outline" ? theme.colors.white : props.$styleProps.color)};
-  color: ${(props) => (props.$styleProps.variant === "outline" ? props.$styleProps.color : theme.colors.white)};
-  border: ${(props) =>
-    props.$styleProps.variant === "outline" ? `1px solid ${props.$styleProps.color || theme.colors.white}` : "none"};
-  padding: ${(props) => props.$styleProps.padding};
-  text-align: center;
+const StyledButton = styled.div<{ fs: number }>`
+  padding: 6px 10px 6px 7px;
   text-decoration: none;
-  outline: none;
-  border-radius: ${(props) => props.$styleProps.radius}px;
-  opacity: 0.9;
-  display: inline-block;
   font-family: ${theme.font.defaultFamily};
-  font-size: ${(props) => props.$styleProps.fontSize};
+  font-size: ${(props) => `${props.fs}rem`};
+`;
+
+const StyledButtonWrapper = styled.div<{ radius: number; variant: string; color: string; width?: number }>`
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0px;
+  background-color: ${(props) => (props.variant === "outline" ? theme.colors.white : props.color)};
+  color: ${(props) => (props.variant === "outline" ? props.color : theme.colors.white)};
+  width: ${(props) => (props.width ? `${props.width}px` : "fit-content")};
+  border-radius: ${(props) => props.radius}px;
+  border: ${(props) => (props.variant === "outline" ? `1px solid ${props.color || theme.colors.white}` : "none")};
+  outline: none;
+  opacity: 0.9;
   cursor: pointer;
   &:hover {
     opacity: 1;
-    ${(props) =>
-      props.$styleProps.variant === "outline" ? { backgroundColor: props.$styleProps.color, color: theme.colors.white } : {}}
+    ${(props) => (props.variant === "outline" ? { backgroundColor: props.color, color: theme.colors.white } : {})}
   }
+`;
+
+const StyledButtonIcon = styled.div`
+  padding-left: 10px;
+  display: flex;
 `;
 
 export const TextButton = styled.button<{ color?: Color }>`
