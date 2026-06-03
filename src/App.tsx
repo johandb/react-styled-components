@@ -12,6 +12,7 @@ import { Select } from "./styled/select/select.styled";
 import { Stack } from "./styled/stack/stack.styled";
 import { Switch } from "./styled/switch/switch.styled";
 import { Table, type ColumnHeader } from "./styled/table/table.styled";
+import { TestControl } from "./styled/test/test.styled";
 import { Text } from "./styled/text/styled.text";
 import { TextArea } from "./styled/textarea/textarea.styled";
 
@@ -21,7 +22,6 @@ import { Modal } from "./styled/dialogs/modal.styled";
 import { useDisclosure } from "./styled/hooks/use-disclosure";
 
 import "./App.css";
-import { TestControl } from "./styled/test/test.styled";
 
 const App = () => {
   const [country, setCountry] = useState("us");
@@ -220,16 +220,16 @@ const App = () => {
     return (
       <div>
         <h4>Buttons</h4>
-        <Button ml={10} mt={10} width={100} onClick={handleButtonClick}>
+        <Button ml={10} mt={10} width={200} onClick={handleButtonClick}>
           Custom
         </Button>
-        <Button m={10} leftIcon={<FaSave size="10" color="white" />} size="xs" onClick={handleButtonClick}>
+        <Button m={10} size="xs" leftIcon={<FaSave width={12} color="white" />} onClick={handleButtonClick}>
           Button XS
         </Button>
         <Button m={10} size="sm" onClick={handleButtonClick}>
           Button SM
         </Button>
-        <Button m={10} width={200} leftIcon={<FaSave size="16" color="white" />} size="md" onClick={handleButtonClick}>
+        <Button m={10} size="md" leftIcon={<FaSave width={24} color="white" />} onClick={handleButtonClick}>
           Button MD
         </Button>
         <Button m={10} variant="outline" color="indigo" size="md" onClick={handleButtonClick}>
@@ -342,30 +342,23 @@ const App = () => {
   const TestControls = () => {
     return (
       <>
-        <TestControl m={20} leftIcon={<FaSave size="12" color="white" />}>
-          <Text color="white" size="xs">
-            Save
-          </Text>
+        <TestControl size="xs" color="orange" m={20} leftIcon={<FaSave size="10" color="white" />}>
+          Save Xs
         </TestControl>
-        <TestControl m={20} leftIcon={<FaSave size="14" color="white" />}>
-          <Text color="white" size="sm">
-            Save
-          </Text>
+        <TestControl size="sm" color="orange" m={20} leftIcon={<FaSave size="14" color="white" />}>
+          Save Sm
         </TestControl>
-        <TestControl m={20} leftIcon={<FaSave size="16" color="white" />}>
-          <Text color="white" size="md">
-            Save
-          </Text>
+        <TestControl size="md" color="orange" m={20} leftIcon={<FaSave size="18" color="white" />}>
+          Save Md
         </TestControl>
-        <TestControl m={20} leftIcon={<FaSave size="18" color="white" />}>
-          <Text color="white" size="lg">
-            Save
-          </Text>
+        <TestControl variant="outline" size="md" color="orange" m={20}>
+          Save Md
         </TestControl>
-        <TestControl m={20} leftIcon={<FaSave size="20" color="white" />}>
-          <Text color="white" size="xl">
-            Save
-          </Text>
+        <TestControl size="lg" color="orange" m={20} leftIcon={<FaSave size="22" color="white" />}>
+          Save Lg
+        </TestControl>
+        <TestControl size="xl" color="orange" m={20} leftIcon={<FaSave size="26" color="white" />}>
+          Save Xl
         </TestControl>
       </>
     );
@@ -383,7 +376,7 @@ const App = () => {
       {/* {showSwitches()} */}
       {/* {showAccordion()} */}
       {/* {showAlerts()} */}
-      {/* {showButtons()} */}
+      {showButtons()}
       {/* {showText()} */}
       {/* {showTable()} */}
       {/* {showSelect()} */}
@@ -391,7 +384,7 @@ const App = () => {
       {/* </Container> */}
       {/* {showCard()} */}
       {/* {showDialog()} */}
-      {TestControls()}
+      {/* {TestControls()} */}
     </>
   );
 };

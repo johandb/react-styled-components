@@ -1,4 +1,4 @@
-import styled, { StyleSheetManager } from "styled-components";
+import styled from "styled-components";
 import { Box } from "../box/box";
 import { theme } from "../themes/themes";
 import type { Color } from "../types/color";
@@ -22,56 +22,54 @@ export const Button = (props: ButtonProps) => {
   let color = themeColors[props.color as keyof typeof themeColors]?.value ?? theme.colors.primary;
 
   let index = ["xs", "sm", "md", "lg", "xl"].indexOf(size);
-  let fs = index * 0.12 + 0.65;
+  let fs = index * 0.2 + 0.6;
 
   return (
     <Box w={props.w} m={props.m} mt={props.mt} mr={props.mr} mb={props.mb} ml={props.ml}>
-      <StyleSheetManager shouldForwardProp={(prop) => prop !== "variant"}>
-        <StyledButtonWrapper
-          onClick={props.onClick}
-          radius={props.radius || 7}
-          variant={props.variant || "filled"}
-          color={color}
-          width={props.width}
-        >
-          {props.leftIcon && <StyledButtonIcon>{props.leftIcon}</StyledButtonIcon>}
-          <StyledButton fs={fs}>{props.children}</StyledButton>
-        </StyledButtonWrapper>
-      </StyleSheetManager>
+      <StyledButtonWrapper
+        onClick={props.onClick}
+        radius={props.radius || 7}
+        $variant={props.variant || "filled"}
+        color={color}
+        width={props.width}
+      >
+        {props.leftIcon && <StyledButtonIcon>{props.leftIcon}</StyledButtonIcon>}
+        <StyledButton $fs={fs}>{props.children}</StyledButton>
+      </StyledButtonWrapper>
     </Box>
   );
 };
 
-const StyledButton = styled.div<{ fs: number }>`
-  padding: 6px 10px 6px 7px;
+const StyledButton = styled.div<{ $fs: number }>`
+  padding: 5px 10px 5px 10px;
   text-decoration: none;
   font-family: ${theme.font.defaultFamily};
-  font-size: ${(props) => `${props.fs}rem`};
+  font-size: ${(props) => `${props.$fs}rem`};
 `;
 
-const StyledButtonWrapper = styled.div<{ radius: number; variant: string; color: string; width?: number }>`
+const StyledButtonWrapper = styled.div<{ radius: number; $variant: string; color: string; width?: number }>`
   display: flex;
   flex-direction: row;
-  align-items: baseline;
   justify-content: center;
-  gap: 0px;
-  background-color: ${(props) => (props.variant === "outline" ? theme.colors.white : props.color)};
-  color: ${(props) => (props.variant === "outline" ? props.color : theme.colors.white)};
+  align-items: center;
+  background-color: ${(props) => (props.$variant === "outline" ? theme.colors.white : props.color)};
+  color: ${(props) => (props.$variant === "outline" ? props.color : theme.colors.white)};
   width: ${(props) => (props.width ? `${props.width}px` : "fit-content")};
   border-radius: ${(props) => props.radius}px;
-  border: ${(props) => (props.variant === "outline" ? `1px solid ${props.color || theme.colors.white}` : "none")};
+  border: ${(props) => (props.$variant === "outline" ? `1px solid ${props.color || theme.colors.white}` : "none")};
   outline: none;
   opacity: 0.9;
   cursor: pointer;
   &:hover {
     opacity: 1;
-    ${(props) => (props.variant === "outline" ? { backgroundColor: props.color, color: theme.colors.white } : {})}
+    ${(props) => (props.$variant === "outline" ? { backgroundColor: props.color, color: theme.colors.white } : {})}
   }
 `;
 
 const StyledButtonIcon = styled.div`
-  padding-left: 10px;
+  padding: 5px 0px 5px 5px;
   display: flex;
+  align-items: center;
 `;
 
 export const TextButton = styled.button<{ color?: Color }>`
