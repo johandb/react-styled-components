@@ -156,13 +156,13 @@ const App = () => {
     return (
       <div>
         <h4>Switches</h4>
-        <Group>
-          <Switch onChange={(b) => handleToggle("xs", b)} size="xs" label="I agree" color="orange" />
-          <Switch onChange={(b) => handleToggle("sm", b)} size="sm" label="I agree" color="orange" />
-          <Switch onChange={(b) => handleToggle("md", b)} size="md" label="I agree" color="orange" />
-          <Switch onChange={(b) => handleToggle("lg", b)} size="lg" label="I agree" color="orange" />
-          <Switch onChange={(b) => handleToggle("xl", b)} size="xl" label="I agree" color="orange" />
-        </Group>
+        <Stack>
+          <Switch m={5} onChange={(b) => handleToggle("xs", b)} size="xs" label="Xs I agree" color="orange" />
+          <Switch m={5} onChange={(b) => handleToggle("sm", b)} size="sm" label="Sm I agree" color="orange" />
+          <Switch m={5} onChange={(b) => handleToggle("md", b)} size="md" label="Md I agree" color="orange" />
+          <Switch m={5} onChange={(b) => handleToggle("lg", b)} size="lg" label="Lg I agree" color="orange" />
+          <Switch m={5} onChange={(b) => handleToggle("xl", b)} size="xl" label="Xl I agree" color="orange" />
+        </Stack>
         <br />
         <hr />
         <br />
@@ -373,10 +373,10 @@ const App = () => {
       {/* {showCheckboxes()} */}
       {/* {showRadios()} */}
       {/* {showInputs()} */}
-      {/* {showSwitches()} */}
+      {showSwitches()}
       {/* {showAccordion()} */}
       {/* {showAlerts()} */}
-      {showButtons()}
+      {/* {showButtons()} */}
       {/* {showText()} */}
       {/* {showTable()} */}
       {/* {showSelect()} */}

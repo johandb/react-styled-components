@@ -4,6 +4,7 @@ import styled from "styled-components";
 interface ModalProps {
   title: string;
   modal?: boolean;
+  width?: number;
   withCloseButton?: boolean;
   onClose?: () => void;
   opened: boolean;
@@ -26,7 +27,7 @@ export const Modal = (props: ModalProps) => {
   let withCloseButton = props.withCloseButton ?? true;
 
   return (
-    <StyledModal $modal={props.modal} ref={dialogRef} onClose={props.onClose}>
+    <StyledModal $width={props.width} $modal={props.modal} ref={dialogRef} onClose={props.onClose}>
       <StyledModalContainer>
         <StyledModalHeader>{props.title}</StyledModalHeader>
         {withCloseButton && (
@@ -49,11 +50,12 @@ export const Modal = (props: ModalProps) => {
   );
 };
 
-const StyledModal = styled.dialog<{ $modal?: boolean }>`
+const StyledModal = styled.dialog<{ $modal?: boolean; $width?: number }>`
   ${(props) => (props.$modal ? "border:none;" : "border: 1px solid #ccc")};
   border-radius: 6px;
   margin: auto;
   padding: 10px 10px;
+  width: ${(props) => (props.$width ? `${props.$width}px` : "fit-content")};
   box-shadow: rgba(194, 194, 194, 0.25) 0px 5px 10px;
   opacity: 0;
   transition: all 0.3s allow-discrete;

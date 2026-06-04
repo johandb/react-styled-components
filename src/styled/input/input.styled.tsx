@@ -1,10 +1,12 @@
 import styled from "styled-components";
+import { Box } from "../box/box";
 import useInput from "../hooks/use-input";
 import { Text } from "../text/styled.text";
 import { theme } from "../themes/themes";
+import type { DefaultProps } from "../types/default.props";
 import type { Size } from "../types/size";
 
-interface InputProps {
+interface InputProps extends DefaultProps {
   label?: string;
   placeholder?: string;
   value: string;
@@ -24,33 +26,35 @@ const Input = (props: StyledInputProps) => {
   let input = useInput(size);
 
   return (
-    <StyledTextInputContainer>
-      <StyledInputWrapper>
-        {props.label && (
-          <Text mb={3} size={props.size}>
-            {props.label}
-          </Text>
-        )}
-        {props.required && (
-          <Text color="red" size={props.size}>
-            *
-          </Text>
-        )}
-      </StyledInputWrapper>
-      <StyledInputWrapper>
-        {props.leftIcon && <StyledInputIcon $p={props.leftIcon ? input.pt : 0}>{props.leftIcon}</StyledInputIcon>}
-        <StyledInput
-          $type={props.type}
-          $width={props.width}
-          value={props.value}
-          $pr={props.leftIcon ? input.pr : 5}
-          $fs={input.fs}
-          disabled={props.disabled ?? false}
-          placeholder={props.placeholder ?? ""}
-          onChange={(e) => props.onChange(e.target.value)}
-        />
-      </StyledInputWrapper>
-    </StyledTextInputContainer>
+    <Box w={props.w} m={props.m} mt={props.mt} mr={props.mr} mb={props.mb} ml={props.ml}>
+      <StyledTextInputContainer>
+        <StyledInputWrapper>
+          {props.label && (
+            <Text mb={3} size={props.size}>
+              {props.label}
+            </Text>
+          )}
+          {props.required && (
+            <Text color="red" size={props.size}>
+              *
+            </Text>
+          )}
+        </StyledInputWrapper>
+        <StyledInputWrapper>
+          {props.leftIcon && <StyledInputIcon $p={props.leftIcon ? input.pt : 0}>{props.leftIcon}</StyledInputIcon>}
+          <StyledInput
+            $type={props.type}
+            $width={props.width}
+            value={props.value}
+            $pr={props.leftIcon ? input.pr : 5}
+            $fs={input.fs}
+            disabled={props.disabled ?? false}
+            placeholder={props.placeholder ?? ""}
+            onChange={(e) => props.onChange(e.target.value)}
+          />
+        </StyledInputWrapper>
+      </StyledTextInputContainer>
+    </Box>
   );
 };
 

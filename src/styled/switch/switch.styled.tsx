@@ -1,13 +1,15 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { Box } from "../box/box";
 import useSwitch from "../hooks/use-switch";
 import { Text } from "../text/styled.text";
 import { theme } from "../themes/themes";
 import type { Color } from "../types/color";
+import type { DefaultProps } from "../types/default.props";
 import type { Size } from "../types/size";
 import { themeColors } from "../utils/styled.utils";
 
-interface SwitchProps {
+interface SwitchProps extends DefaultProps {
   color?: Color;
   label?: string;
   position?: "left" | "right";
@@ -20,8 +22,6 @@ export const Switch = (props: SwitchProps) => {
   const [toggle, setToggle] = useState(props.on ?? false);
 
   let sw = useSwitch(props.size ?? "sm");
-
-  //let color = colorValue(props.color ?? theme.colors.primary);
   let color = themeColors[props.color as keyof typeof themeColors]?.value ?? props.color ?? theme.colors.primary;
 
   const handleToggle = () => {
@@ -31,12 +31,14 @@ export const Switch = (props: SwitchProps) => {
   };
 
   return (
-    <StyledSwitchContainer onClick={() => handleToggle()} $position={props.position ?? "left"}>
-      <StyledSwitch $w={sw.w} $h={sw.h} $cw={sw.cw} $ch={sw.ch} $left={sw.left} $toggle={toggle} color={color} />
-      <Text size={props.size} ml={5} mr={5} color={toggle ? "black" : theme.colors.defaultDisabledColor}>
-        {props.label ?? ""}
-      </Text>
-    </StyledSwitchContainer>
+    <Box w={props.w} m={props.m} mt={props.mt} mr={props.mr} mb={props.mb} ml={props.ml}>
+      <StyledSwitchContainer onClick={() => handleToggle()} $position={props.position ?? "left"}>
+        <StyledSwitch $w={sw.w} $h={sw.h} $cw={sw.cw} $ch={sw.ch} $left={sw.left} $toggle={toggle} color={color} />
+        <Text size={props.size} ml={5} mr={5} color={toggle ? "black" : theme.colors.defaultDisabledColor}>
+          {props.label ?? ""}
+        </Text>
+      </StyledSwitchContainer>
+    </Box>
   );
 };
 
