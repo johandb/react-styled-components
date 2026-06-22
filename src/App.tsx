@@ -20,6 +20,7 @@ import { Card } from "./styled/card/card.styled";
 import { DatePicker } from "./styled/date/date.styled";
 import { Modal } from "./styled/dialogs/modal.styled";
 import { useDisclosure } from "./styled/hooks/use-disclosure";
+import { Image } from "./styled/image/styled.image";
 
 import "./App.css";
 
@@ -35,7 +36,7 @@ const App = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
   const header: ColumnHeader = {
-    bg: "black",
+    bg: "#A00000",
     columns: [
       { id: "name", title: "Name" },
       { id: "country", title: "Country" },
@@ -364,21 +365,40 @@ const App = () => {
     );
   };
 
+  const showImages = () => {
+    return (
+      <Group>
+        <Image h={300} src="assets/pic-1.png" />
+      </Group>
+    );
+  };
+
+  const showGroup = () => {
+    return (
+      <Group gap={10}>
+        <div className="box">Red-1</div>
+        <div className="box">Red-2</div>
+      </Group>
+    );
+  };
+
   return (
     <>
       <h2>Demo Controls</h2>
 
       {/* <Container></Container> */}
       {/* <Stack> */}
+      {/* {showGroup()} */}
       {/* {showCheckboxes()} */}
       {/* {showRadios()} */}
       {/* {showInputs()} */}
-      {showSwitches()}
+      {/* {showSwitches()} */}
       {/* {showAccordion()} */}
       {/* {showAlerts()} */}
       {/* {showButtons()} */}
       {/* {showText()} */}
-      {/* {showTable()} */}
+      {/* {showImages()} */}
+      {showTable()}
       {/* {showSelect()} */}
       {/* </Stack> */}
       {/* </Container> */}

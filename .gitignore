@@ -29,3 +29,6 @@ src/components/info/news/news.tsx
 src/components/info/varia/varia.tsx
 src/components/info/weektext/weektext.tsx
 src/styled/test/
+public/assets/pic-1.jpg
+public/assets/pic-1.png
+public/assets/pic-1.svg

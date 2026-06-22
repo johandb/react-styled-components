@@ -59,9 +59,6 @@ export const Radio = (props: RadioProps) => {
   let color = themeColors[props.color as keyof typeof themeColors]?.value ?? theme.colors.defaultRadioButton;
   color = disabled ? theme.colors.defaultDisabledColor : color;
 
-  let bg = disabled ? theme.colors.defaultDisabledColor : color;
-  bg = checked ? color : theme.colors.white;
-
   const onChange = (checked: boolean | undefined) => {
     props.onChange ? props.onChange(checked ?? false) : {};
   };
