@@ -23,6 +23,8 @@ import { useDisclosure } from "./styled/hooks/use-disclosure";
 import { Image } from "./styled/image/styled.image";
 
 import "./App.css";
+import DataGrid from "./components/datagrid/datagrid";
+import type { DataGridColumn } from "./models/data.model";
 
 const App = () => {
   const [country, setCountry] = useState("us");
@@ -382,6 +384,108 @@ const App = () => {
     );
   };
 
+  const showDatagrid = () => {
+    // Definieer het type voor onze bestellingen (optioneel, maar netjes in TypeScript)
+    interface Bestelling {
+      id: number;
+      customer: string;
+      product: string;
+      price: string;
+      status: "Geleverd" | "In behandeling";
+    }
+
+    // State om de geselecteerde rijen in op te slaan
+    const [selectedOrders, setSelectedOrders] = useState<Bestelling[]>([]);
+
+    // 1. Kolom-definities met gebruik van de DataGridColumn interface
+    const columns: DataGridColumn[] = [
+      { field: "id", headerName: "Bestel ID" },
+      { field: "customer", headerName: "Klantnaam" },
+      { field: "product", headerName: "Product" },
+      { field: "price", headerName: "Totaalprijs" },
+      {
+        field: "status",
+        headerName: "Status",
+        // Custom rendering om de status een mooi kleurtje te geven
+        renderCell: (row: Bestelling) => (
+          <span
+            style={{
+              color: row.status === "Geleverd" ? "#2e7d32" : "#ed6c02",
+              fontWeight: "bold",
+            }}
+          >
+            {row.status}
+          </span>
+        ),
+      },
+    ];
+
+    // 2. De data voor de tabel
+    const orders: Bestelling[] = [
+      { id: 101, customer: "Anouk de Jong", product: "Draadloze Muis", price: "€ 25,00", status: "Geleverd" },
+      { id: 102, customer: "Bram Bakker", product: "Mechanisch Toetsenbord", price: "€ 85,00", status: "In behandeling" },
+      { id: 103, customer: "Carla Smits", product: "Gaming Monitor", price: "€ 299,00", status: "Geleverd" },
+      { id: 104, customer: "Daan van Dijk", product: "USB-C Kabel 2m", price: "€ 12,50", status: "In behandeling" },
+      { id: 105, customer: "Elsa de Wit", product: "Laptop Standaard", price: "€ 45,00", status: "Geleverd" },
+      { id: 106, customer: "Freek Mulder", product: "Grote Muismat", price: "€ 20,00", status: "In behandeling" },
+    ];
+
+    // 3. Voorbeeld actie voor de geselecteerde rijen
+    const handleVerwerkBestellingen = () => {
+      const ids = selectedOrders.map((o) => o.id).join(", ");
+      alert(`Bestellingen met ID [${ids}] worden nu verwerkt!`);
+      // Hier kun je bijvoorbeeld een API-aanroep doen
+    };
+
+    return (
+      <div style={{ padding: "40px", maxWidth: "1200px", margin: "0 auto" }}>
+        <h1 style={{ marginBottom: "5px" }}>Bestellingenbeheer</h1>
+        <p style={{ color: "#666", marginBottom: "30px" }}>Overzicht van openstaande en geleverde bestellingen</p>
+
+        {/* Actiebalk: Alleen zichtbaar als er minimaal 1 rij is geselecteerd */}
+        {selectedOrders.length > 0 && (
+          <div
+            style={{
+              padding: "15px 20px",
+              backgroundColor: "#e8f0fe",
+              marginBottom: "20px",
+              borderRadius: "6px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              border: "1px solid #d2e3fc",
+            }}
+          >
+            <span style={{ fontWeight: 500, color: "#1967d2" }}>{selectedOrders.length} bestelling(en) geselecteerd</span>
+            <button
+              onClick={handleVerwerkBestellingen}
+              style={{
+                padding: "8px 16px",
+                backgroundColor: "#1a73e8",
+                color: "#fff",
+                border: "none",
+                borderRadius: "4px",
+                cursor: "pointer",
+                fontWeight: "bold",
+              }}
+            >
+              Geselecteerde bestellingen verwerken
+            </button>
+          </div>
+        )}
+
+        {/* Het DataGrid component met alle benodigde props */}
+        <DataGrid
+          columns={columns}
+          data={orders}
+          initialRowsPerPage={4}
+          selectedRows={selectedOrders}
+          onSelectionChange={setSelectedOrders}
+        />
+      </div>
+    );
+  };
+
   return (
     <>
       <h2>Demo Controls</h2>
@@ -398,13 +502,14 @@ const App = () => {
       {/* {showButtons()} */}
       {/* {showText()} */}
       {/* {showImages()} */}
-      {showTable()}
+      {/* {showTable()} */}
       {/* {showSelect()} */}
       {/* </Stack> */}
       {/* </Container> */}
       {/* {showCard()} */}
       {/* {showDialog()} */}
       {/* {TestControls()} */}
+      {showDatagrid()}
     </>
   );
 };

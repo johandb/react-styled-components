@@ -15,6 +15,7 @@ interface ButtonProps extends DefaultProps {
   onClick: () => void;
   leftIcon?: React.ReactNode;
   width?: number;
+  disabled?: boolean;
 }
 
 export const Button = (props: ButtonProps) => {

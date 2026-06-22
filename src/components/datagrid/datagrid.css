@@ -1,0 +1,119 @@
+/* Container rondom het hele grid */
+.datagrid-container {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  margin: 20px 0;
+}
+
+/* De zoekbalk */
+.datagrid-search-container {
+  margin: -0px 0px 15px 0px;
+  /* 15px ruimte onder de zoekbalk */
+}
+
+.datagrid-search-input {
+  padding: 8px 12px;
+  width: 300px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* De tabel */
+.datagrid-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.datagrid-header-row {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.datagrid-header-cell {
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Kolommen voor selectievakjes */
+.datagrid-checkbox-header-cell,
+.datagrid-checkbox-cell {
+  padding: 12px;
+  width: 40px;
+  text-align: center;
+}
+
+.datagrid-checkbox-input {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+
+/* Rij styling */
+.datagrid-row {
+  border-bottom: 1px solid #dee2e6;
+  background-color: #ffffff;
+  transition: background-color 0.2s;
+}
+
+/* Extra klasse als een rij geselecteerd is */
+.datagrid-row.is-selected {
+  background-color: #f1f3f9;
+}
+
+.datagrid-cell {
+  padding: 12px;
+  font-size: 14px;
+}
+
+.datagrid-no-data {
+  padding: 20px;
+  text-align: center;
+  color: #6c757d;
+}
+
+/* Paginering onderkant */
+.datagrid-pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+.datagrid-page-button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.datagrid-page-button:disabled {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+.datagrid-page-info {
+  font-size: 14px;
+  color: #495057;
+}
+
+/* Zorgt ervoor dat de tabelbody een vaste hoogte behoudt */
+.datagrid-table tbody {
+  /* Berekening: aantal rijen (bijv. 5) x geschatte rijhoogte (45px) */
+  display: block;
+  min-height: 225px;
+}
+
+/* Omdat we tbody 'block' maken, moeten we zorgen dat de rijen zich netjes verdelen */
+.datagrid-table thead,
+.datagrid-table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
